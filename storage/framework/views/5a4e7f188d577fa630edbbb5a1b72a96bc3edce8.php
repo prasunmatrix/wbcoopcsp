@@ -18,7 +18,7 @@
         <div class="col-md-12">
             <div class="box box-primary">
                 <!-- <div class="box-header with-border">
-                    <h3 class="box-title"><?php echo e($panel_title); ?></h3>
+                    <h3 class="box-title">Edit</h3>
                 </div> -->
 
                 <div class="box-header">
@@ -44,39 +44,55 @@
                 <?php echo e(Form::open(array(
 		                            'method'=> 'POST',
 		                            'class' => '',
-                                    'route' => ['admin.serviceprovider.addSubmit'],
-                                    'name'  => 'addProjectTypeForm',
-                                    'id'    => 'addProjectTypeForm',
+                                    'route' => ['admin.edit-profile'],
+                                    'name'  => 'updateAdminProfile',
+                                    'id'    => 'updateAdminProfile',
                                     'files' => true,
 		                            'novalidate' => true))); ?>
 
                     <div class="box-body cus-body">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="Name">Name<span class="red_star">*</span></label>
-                                    <?php echo e(Form::text('full_name', null, array(
+                                    <label for="FullName">Full Name<span class="red_star">*</span></label>
+                                    <?php echo e(Form::text('full_name', $details->full_name, array(
                                                                 'id' => 'full_name',
                                                                 'class' => 'form-control',
-                                                                'placeholder' => 'Name',
+                                                                'placeholder' => 'Full Name',
                                                                 'required' => 'required' ))); ?>
 
                                 </div>
-                            </div>                            
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="PhoneNumber">Phone Number<span class="red_star">*</span></label>
+                                    <?php echo e(Form::text('phone_no', $details->phone_no, array(
+                                                                'id' => 'phone_no',
+                                                                'class' => 'form-control',
+                                                                'placeholder' => 'Phone Number',
+                                                                'required' => 'required' ))); ?>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="box-footer">
-                        <div class="col-md-6">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                            <a href="<?php echo e(route('admin.serviceprovider.list')); ?>" class="btn btn-block btn-default btn_width_reset">Cancel</a>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <a href="<?php echo e(route('admin.dashboard')); ?>" class="btn btn-block btn-default btn_width_reset">Cancel</a>
+                            </div>
                         </div>
                     </div>
                 <?php echo Form::close(); ?>
+
 
             </div>
         </div>
     </div>
 </section>
+<!-- /.content -->
 
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('admin.layouts.app', ['title' =>$panel_title], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/html/prasun/wbcoopcsp/resources/views/admin/software/add.blade.php ENDPATH**/ ?>
+
+<?php echo $__env->make('admin.layouts.app', ['title' => $panel_title], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/html/prasun/wbcoopcsp/resources/views/admin/account/edit_profile.blade.php ENDPATH**/ ?>
