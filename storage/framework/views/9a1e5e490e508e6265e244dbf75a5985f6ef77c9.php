@@ -7,7 +7,7 @@
 
     </h1>
     <ol class="breadcrumb">
-        <li><a><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a><i class="fa fa-dashboard"></i> Home1</a></li>
         <li class="active"><?php echo e($page_title); ?></li>
     </ol>
 </section>
