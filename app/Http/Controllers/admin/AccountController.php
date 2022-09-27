@@ -66,6 +66,8 @@ class AccountController extends Controller
         } elseif($loginUser->user_type == 1){
             //\DB::enableQueryLog();
             $query = UserDetails::whereBankId($loginUser->id)->whereNotNull('range_id');
+            //dd(\DB::getQueryLog());
+            //\DB::enableQueryLog();
             $softwareDetails = UserDetails::with(['userSoftware'])->select('*', \DB::raw('count(*) as total'))
             ->where('software_using','!=','NULL')
             ->where('bank_id',$loginUser->id)
@@ -101,7 +103,9 @@ class AccountController extends Controller
         }
         $exists = $query->count();
             if ($exists > 0) {
+                //\DB::enableQueryLog();
                 $list = $query->sortable()->paginate(AdminHelper::ADMIN_LIST_LIMIT);
+                //dd(\DB::getQueryLog());
                 $data['list'] = $list;
             } else {
                 $data['list'] = array();

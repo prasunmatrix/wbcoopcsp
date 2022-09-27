@@ -346,16 +346,12 @@ class PacsController extends Controller
             $pageNo = Session::get('pageNo') ? Session::get('pageNo') : '';
             $data['pageNo'] = $pageNo;
             $pacsDetails = User::find($user->id);
-            //dd($pacsDetails->userProfile);
+            // dd($pacsDetails->userProfile);
             $bankList = User::whereUserParrentId('0')->whereUserType('1')->where('status', '1')->orderBy('full_name', 'asc')->get();
             $data['bankList'] = $bankList;
             $zoneList = User::whereUserParrentId('0')->whereUserType('2')->where('status', '1')->orderBy('full_name', 'asc')->get();
             $data['zoneList'] = $zoneList;
-            //\DB::enableQueryLog();
-            //$rangeList = User::whereUserParrentId($pacsDetails->userProfile->zone_id)->whereUserType('3')->where('status', '1')->orderBy('full_name', 'asc')->get();
-            //changes the query by PK date: 27/09/2022 
-            $rangeList = User::whereUserType('3')->where('status', '1')->orderBy('full_name', 'asc')->get(); 
-            //dd(\DB::getQueryLog());
+            $rangeList = User::whereUserParrentId($pacsDetails->userProfile->zone_id)->whereUserType('3')->where('status', '1')->orderBy('full_name', 'asc')->get();
             $data['rangeList'] = $rangeList;
             // dd($rangeList);
             $districtList = District::select('id','district_name')->where('status', '1')->orderBy('district_name', 'asc')->get();
@@ -442,7 +438,7 @@ class PacsController extends Controller
                         $newPacsDetails->zone_id                        = isset($request->zone_id) ? $request->zone_id : NULL;
                         $newPacsDetails->range_id                       = isset($request->range_id) ? $request->range_id : NULL;
                         $newPacsDetails->district_id                    = isset($request->district_id) ? $request->district_id : NULL;
-                        //$newPacsDetails->block_id                       = isset($request->block_id) ? $request->block_id : NULL; \\changes by pk date:27/09/2022
+                        $newPacsDetails->block_id                       = isset($request->block_id) ? $request->block_id : NULL;
                         $newPacsDetails->software_using                 = isset($request->software_using) ? $request->software_using : NULL;
                         $newPacsDetails->information_correct_verified   = '1';
                         $newPacsDetails->unique_id_noted                = '1';
