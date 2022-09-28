@@ -27,7 +27,7 @@
         <div class="box-header with-border">
           <h3 class="box-title">{{ $panel_title }}</h3>
           <div class="row">
-            <form name="filter" id="filter" method="GET" action="{{ route('admin.range.pacs') }}">
+            <form name="filter" id="filter" method="GET" action="{{ route('admin.bank.pacslist') }}">
 
               <div class="col-sm-6">
                 <label class="w-100">[Name/Email/Phone No]
@@ -36,7 +36,7 @@
               </div>
               <div class="col-sm-4">
                 <input type="submit" name="filter" value="Filter" class="btn btn-primary modal-action-btn" style="margin-top:20px;">
-                <a class="btn btn-primary modal-action-btn" href="{{ route('admin.range.pacs') }}" style="margin-top:20px;">Reset</a>
+                <a class="btn btn-primary modal-action-btn" href="{{ route('admin.bank.pacslist') }}" style="margin-top:20px;">Reset</a>
 
               </div>
               <!-- <div class="col-sm-2">
@@ -97,9 +97,9 @@
             <tbody>
               <tr role="row" class="odd">
                 <td class="sorting_1">
-                  @if(isset($row->userProfile->unique_id))
-                  @if($row->userProfile->unique_id != NULL || $row->userProfile->unique_id !='')
-                  {{ $row->userProfile->unique_id }}
+                  @if(isset($row->unique_id))
+                  @if($row->unique_id != NULL || $row->unique_id !='')
+                  {{ $row->unique_id }}
                   @else
                   No records found
                   @endif
@@ -108,9 +108,9 @@
                   @endif
                 </td>
                 <td class="sorting_1">
-                  @if(isset($row->full_name))
-                  @if($row->full_name != NULL || $row->full_name !='')
-                  {{ $row->full_name }}
+                  @if(isset($row->userDetail->full_name))
+                  @if($row->userDetail->full_name != NULL || $row->userDetail->full_name !='')
+                  {{ $row->userDetail->full_name }}
                   @else
                   No records found
                   @endif
@@ -119,9 +119,9 @@
                   @endif
                 </td>
                 <td class="sorting_1">
-                  @if(isset($row->email))
-                  @if($row->email != NULL || $row->email !='')
-                  {{ $row->email }}
+                  @if(isset($row->userDetail->email))
+                  @if($row->userDetail->email != NULL || $row->userDetail->email !='')
+                  {{ $row->userDetail->email }}
                   @else
                   No records found
                   @endif
@@ -130,9 +130,9 @@
                   @endif
                 </td>
                 <td class="sorting_1">
-                  @if(isset($row->phone_no))
-                  @if($row->phone_no != NULL || $row->phone_no !='')
-                  {{ $row->phone_no }}
+                  @if(isset($row->userDetail->phone_no))
+                  @if($row->userDetail->phone_no != NULL || $row->userDetail->phone_no !='')
+                  {{ $row->userDetail->phone_no }}
                   @else
                   No records found
                   @endif
@@ -141,9 +141,9 @@
                   @endif
                 </td>
                 <td class="sorting_1">
-                  @if(isset($row->userProfile->bank_id))
-                  @if($row->userProfile->bank_id != NULL || $row->userProfile->bank_id !='')
-                  {{ $row->userProfile->userBank->full_name }} {{$row->userProfile->userBank->ifsc_code}}
+                  @if(isset($row->bank_id))
+                  @if($row->bank_id != NULL || $row->bank_id !='')
+                  {{ $row->userBank->full_name }} {{$row->userBank->ifsc_code}}
                   @else
                   No records found
                   @endif
@@ -152,9 +152,9 @@
                   @endif
                 </td>
                 <td class="sorting_1">
-                  @if(isset($row->userProfile->zone_id))
-                  @if($row->userProfile->zone_id != NULL || $row->userProfile->zone_id !='')
-                  {{ $row->userProfile->userZone->full_name }}
+                  @if(isset($row->zone_id))
+                  @if($row->zone_id != NULL || $row->zone_id !='')
+                  {{ $row->userZone->full_name }}
                   @else
                   No records found
                   @endif
@@ -163,9 +163,9 @@
                   @endif
                 </td>
                 <td class="sorting_1">
-                  @if(isset($row->userProfile->range_id))
-                  @if($row->userProfile->range_id != NULL || $row->userProfile->range_id !='')
-                  {{ $row->userProfile->userRangeOne->full_name }}
+                  @if(isset($row->range_id))
+                  @if($row->range_id != NULL || $row->range_id !='')
+                  {{ $row->userRangeOne->full_name }}
                   @else
                   No records found
                   @endif
@@ -174,9 +174,9 @@
                   @endif
                 </td>
                 <td class="sorting_1">
-                  @if(isset($row->userProfile->district_id))
-                  @if($row->userProfile->district_id != NULL || $row->userProfile->district_id !='')
-                  {{ $row->userProfile->userDistrict->district_name }}
+                  @if(isset($row->district_id))
+                  @if($row->district_id != NULL || $row->district_id !='')
+                  {{ $row->userDistrict->district_name }}
                   @else
                   No records found
                   @endif
@@ -185,9 +185,9 @@
                   @endif
                 </td>
                 <td class="sorting_1">
-                  @if(isset($row->userProfile->block))
-                  @if($row->userProfile->block != NULL || $row->userProfile->block !='')
-                  {{ $row->userProfile->block }}
+                  @if(isset($row->block))
+                  @if($row->block != NULL || $row->block !='')
+                  {{ $row->block }}
                   @else
                   No records found
                   @endif
@@ -196,9 +196,9 @@
                   @endif
                 </td>
                 <td class="sorting_1">
-                  @if(isset($row->userProfile->software_using))
-                  @if($row->userProfile->software_using != NULL || $row->userProfile->software_using !='')
-                  {{ $row->userProfile->userSoftware->full_name }}
+                  @if(isset($row->software_using))
+                  @if($row->software_using != NULL || $row->software_using !='')
+                  {{ $row->userSoftware->full_name }}
                   @else
                   No records found
                   @endif

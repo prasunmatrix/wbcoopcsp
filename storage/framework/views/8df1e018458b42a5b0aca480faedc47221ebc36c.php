@@ -25,7 +25,7 @@
         <div class="box-header with-border">
           <h3 class="box-title"><?php echo e($panel_title); ?></h3>
           <div class="row">
-            <form name="filter" id="filter" method="GET" action="<?php echo e(route('admin.range.pacs')); ?>">
+            <form name="filter" id="filter" method="GET" action="<?php echo e(route('admin.bank.pacslist')); ?>">
 
               <div class="col-sm-6">
                 <label class="w-100">[Name/Email/Phone No]
@@ -34,7 +34,7 @@
               </div>
               <div class="col-sm-4">
                 <input type="submit" name="filter" value="Filter" class="btn btn-primary modal-action-btn" style="margin-top:20px;">
-                <a class="btn btn-primary modal-action-btn" href="<?php echo e(route('admin.range.pacs')); ?>" style="margin-top:20px;">Reset</a>
+                <a class="btn btn-primary modal-action-btn" href="<?php echo e(route('admin.bank.pacslist')); ?>" style="margin-top:20px;">Reset</a>
 
               </div>
               <!-- <div class="col-sm-2">
@@ -95,9 +95,9 @@
             <tbody>
               <tr role="row" class="odd">
                 <td class="sorting_1">
-                  <?php if(isset($row->userProfile->unique_id)): ?>
-                  <?php if($row->userProfile->unique_id != NULL || $row->userProfile->unique_id !=''): ?>
-                  <?php echo e($row->userProfile->unique_id); ?>
+                  <?php if(isset($row->unique_id)): ?>
+                  <?php if($row->unique_id != NULL || $row->unique_id !=''): ?>
+                  <?php echo e($row->unique_id); ?>
 
                   <?php else: ?>
                   No records found
@@ -107,9 +107,9 @@
                   <?php endif; ?>
                 </td>
                 <td class="sorting_1">
-                  <?php if(isset($row->full_name)): ?>
-                  <?php if($row->full_name != NULL || $row->full_name !=''): ?>
-                  <?php echo e($row->full_name); ?>
+                  <?php if(isset($row->userDetail->full_name)): ?>
+                  <?php if($row->userDetail->full_name != NULL || $row->userDetail->full_name !=''): ?>
+                  <?php echo e($row->userDetail->full_name); ?>
 
                   <?php else: ?>
                   No records found
@@ -119,9 +119,9 @@
                   <?php endif; ?>
                 </td>
                 <td class="sorting_1">
-                  <?php if(isset($row->email)): ?>
-                  <?php if($row->email != NULL || $row->email !=''): ?>
-                  <?php echo e($row->email); ?>
+                  <?php if(isset($row->userDetail->email)): ?>
+                  <?php if($row->userDetail->email != NULL || $row->userDetail->email !=''): ?>
+                  <?php echo e($row->userDetail->email); ?>
 
                   <?php else: ?>
                   No records found
@@ -131,9 +131,9 @@
                   <?php endif; ?>
                 </td>
                 <td class="sorting_1">
-                  <?php if(isset($row->phone_no)): ?>
-                  <?php if($row->phone_no != NULL || $row->phone_no !=''): ?>
-                  <?php echo e($row->phone_no); ?>
+                  <?php if(isset($row->userDetail->phone_no)): ?>
+                  <?php if($row->userDetail->phone_no != NULL || $row->userDetail->phone_no !=''): ?>
+                  <?php echo e($row->userDetail->phone_no); ?>
 
                   <?php else: ?>
                   No records found
@@ -143,9 +143,9 @@
                   <?php endif; ?>
                 </td>
                 <td class="sorting_1">
-                  <?php if(isset($row->userProfile->bank_id)): ?>
-                  <?php if($row->userProfile->bank_id != NULL || $row->userProfile->bank_id !=''): ?>
-                  <?php echo e($row->userProfile->userBank->full_name); ?> <?php echo e($row->userProfile->userBank->ifsc_code); ?>
+                  <?php if(isset($row->bank_id)): ?>
+                  <?php if($row->bank_id != NULL || $row->bank_id !=''): ?>
+                  <?php echo e($row->userBank->full_name); ?> <?php echo e($row->userBank->ifsc_code); ?>
 
                   <?php else: ?>
                   No records found
@@ -155,9 +155,9 @@
                   <?php endif; ?>
                 </td>
                 <td class="sorting_1">
-                  <?php if(isset($row->userProfile->zone_id)): ?>
-                  <?php if($row->userProfile->zone_id != NULL || $row->userProfile->zone_id !=''): ?>
-                  <?php echo e($row->userProfile->userZone->full_name); ?>
+                  <?php if(isset($row->zone_id)): ?>
+                  <?php if($row->zone_id != NULL || $row->zone_id !=''): ?>
+                  <?php echo e($row->userZone->full_name); ?>
 
                   <?php else: ?>
                   No records found
@@ -167,9 +167,9 @@
                   <?php endif; ?>
                 </td>
                 <td class="sorting_1">
-                  <?php if(isset($row->userProfile->range_id)): ?>
-                  <?php if($row->userProfile->range_id != NULL || $row->userProfile->range_id !=''): ?>
-                  <?php echo e($row->userProfile->userRangeOne->full_name); ?>
+                  <?php if(isset($row->range_id)): ?>
+                  <?php if($row->range_id != NULL || $row->range_id !=''): ?>
+                  <?php echo e($row->userRangeOne->full_name); ?>
 
                   <?php else: ?>
                   No records found
@@ -179,9 +179,9 @@
                   <?php endif; ?>
                 </td>
                 <td class="sorting_1">
-                  <?php if(isset($row->userProfile->district_id)): ?>
-                  <?php if($row->userProfile->district_id != NULL || $row->userProfile->district_id !=''): ?>
-                  <?php echo e($row->userProfile->userDistrict->district_name); ?>
+                  <?php if(isset($row->district_id)): ?>
+                  <?php if($row->district_id != NULL || $row->district_id !=''): ?>
+                  <?php echo e($row->userDistrict->district_name); ?>
 
                   <?php else: ?>
                   No records found
@@ -191,9 +191,9 @@
                   <?php endif; ?>
                 </td>
                 <td class="sorting_1">
-                  <?php if(isset($row->userProfile->block)): ?>
-                  <?php if($row->userProfile->block != NULL || $row->userProfile->block !=''): ?>
-                  <?php echo e($row->userProfile->block); ?>
+                  <?php if(isset($row->block)): ?>
+                  <?php if($row->block != NULL || $row->block !=''): ?>
+                  <?php echo e($row->block); ?>
 
                   <?php else: ?>
                   No records found
@@ -203,9 +203,9 @@
                   <?php endif; ?>
                 </td>
                 <td class="sorting_1">
-                  <?php if(isset($row->userProfile->software_using)): ?>
-                  <?php if($row->userProfile->software_using != NULL || $row->userProfile->software_using !=''): ?>
-                  <?php echo e($row->userProfile->userSoftware->full_name); ?>
+                  <?php if(isset($row->software_using)): ?>
+                  <?php if($row->software_using != NULL || $row->software_using !=''): ?>
+                  <?php echo e($row->userSoftware->full_name); ?>
 
                   <?php else: ?>
                   No records found
@@ -268,4 +268,4 @@
 
 
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('admin.layouts.app', ['title' => $panel_title], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\matrixmedia\wbcoopcsp\resources\views/admin/range_user/pacslist.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('admin.layouts.app', ['title' => $panel_title], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\matrixmedia\wbcoopcsp\resources\views/admin/bank_user/pacslist.blade.php ENDPATH**/ ?>

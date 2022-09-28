@@ -329,57 +329,5 @@ class BankController extends Controller
         return substr(str_shuffle($chars), 0, $length);
 
     }
-    /*****************************************************/
-    # BankController
-    # Function name : pacslist
-    # Author        :
-    # Created Date  : 28-09-2022
-    # Purpose       : Showing List of Pacs
-    # Params        : Request $request
-    /*****************************************************/
-    public function pacslist(Request $request) {
-      $data['page_title'] = 'PACS List';
-      $data['panel_title']= 'PACS List';
-      
-      try
-      {
-          $logginUser = AdminHelper::loggedUser();
-          // dd($logginUser);
-          $pageNo = $request->input('page');
-          Session::put('pageNo',$pageNo);
-
-          $data['order_by']   = 'created_at';
-          $data['order']      = 'desc';
-
-          //$query = User::whereNull('deleted_at')->whereUserType('4')->where('user_parrent_id',$logginUser->id);
-          $query = UserDetails::whereBankId($logginUser->id)->whereNotNull('range_id');
-          $data['searchText'] = $key = $request->searchText;
-
-          if ($key) {
-              // if the search key is provided, proceed to build query for search
-              //\DB::enableQueryLog();
-              // $query->where(function ($q) use ($key) {
-              //     $q->where('full_name', 'LIKE', '%' . $key . '%');
-              //     $q->orWhere('email', 'LIKE', '%' . $key . '%');
-              //     $q->orWhere('phone_no', 'LIKE', '%' . $key . '%')->get();                    
-              // });
-              //dd(\DB::getQueryLog());
-          }
-          $exists = $query->count();
-          if ($exists > 0) {
-              //\DB::enableQueryLog();
-              $list = $query->orderBy($data['order_by'], $data['order'])->paginate(AdminHelper::ADMIN_LIST_LIMIT);
-              //dd(\DB::getQueryLog());
-              //dd($list);
-              $data['list'] = $list;
-          } else {
-              $data['list'] = array();
-          }    
-
-          return view('admin.bank_user.pacslist',$data);
-
-      } catch (Exception $e) {
-          return redirect()->route('admin.range.pacs')->with('error', $e->getMessage());
-      }
-  }
+    
 }

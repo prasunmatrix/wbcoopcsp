@@ -121,9 +121,6 @@ Route::group(['namespace' => 'admin', 'prefix' => 'securepanel', 'as' => 'admin.
             Route::post('/edit-submit', 'BankController@edit')->name('editSubmit');
             Route::get('/add','BankController@add')->name('add');
             Route::post('/bank-submit', 'BankController@add')->name('bankSubmit');
-
-            // pacs route by PK date:28/sep/2022
-            Route::get('/pacs', 'BankController@pacslist')->name('pacslist');
         });
         
         Route::group(['prefix' => 'zone', 'as' => 'zone.'], function () {

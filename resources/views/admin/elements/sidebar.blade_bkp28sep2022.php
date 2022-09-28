@@ -96,11 +96,6 @@
         @if ( (Auth::guard('admin')->user()->user_type==3) )
         <li @if (Route::current()->getName() == 'admin.range.pacs'  || Route::current()->getName() == 'admin.range.pacsedit' || Route::current()->getName() == 'admin.range.pacsadd')class="active"  @endif><a href="{{ route('admin.range.pacs') }}"><i class="fa fa-wrench"></i>PACS</a></li>
         @endif
-        
-        @if ( (Auth::guard('admin')->user()->user_type==1) )
-        <li @if (Route::current()->getName() == 'admin.bank.pacslist')class="active"  @endif><a href="{{ route('admin.bank.pacslist') }}"><i class="fa fa-wrench"></i>PACS</a></li>
-        @endif
-
         <li @if (Route::current()->getName() == 'admin.complain.list'  || Route::current()->getName() == 'admin.complain.edit' || Route::current()->getName() == 'admin.complain.add')class="active" @elseif(session('password_changed') || session('pacs_acknowledge')) class="disabled" @endif><a href="{{ route('admin.complain.list') }}"><i class="fa fa-cc"></i>Complain Raised</a></li>
         
         @if ( (Auth::guard('admin')->user()->user_type!=0) )
