@@ -33,7 +33,7 @@ class AdminMiddleware
                 }
                 else
                 {
-                    $rolePermissionRoures = ['admin.dashboard', 'admin.dashboard-destroy', 'admin.edit-profile', 'admin.change-password', 'admin.logout', 'admin.complain.list', 'admin.complain.complain-destroy', 'admin.complain.status', 'admin.complain.add', 'admin.complain.addSubmit','admin.complain.edit','admin.complain.editSubmit','admin.complain.view','admin.complain.alllreply','admin.complain.viewreply','admin.complain.changestatus','admin.range.pacs','admin.range.pacsadd','admin.range.pacsedit','admin.range.pacseditSubmit','admin.range.pacsaddSubmit','admin.range.pacsstatus','admin.range.getRangeZone','admin.range.getRangeRange','admin.range.getRangeBlock','admin.bank.pacslist'];
+                    $rolePermissionRoures = ['admin.dashboard', 'admin.dashboard-destroy', 'admin.edit-profile', 'admin.change-password', 'admin.logout', 'admin.complain.list', 'admin.complain.complain-destroy', 'admin.complain.status', 'admin.complain.add', 'admin.complain.addSubmit','admin.complain.edit','admin.complain.editSubmit','admin.complain.view','admin.complain.alllreply','admin.complain.viewreply','admin.complain.changestatus','admin.range.pacs','admin.range.pacsadd','admin.range.pacsedit','admin.range.pacseditSubmit','admin.range.pacsaddSubmit','admin.range.pacsstatus','admin.range.getRangeZone','admin.range.getRangeRange','admin.range.getRangeBlock','admin.bank.pacslist','admin.bank.pacsadd','admin.bank.pacsaddSubmit','admin.bank.pacsstatus',];
 
                 }
                 

@@ -37,9 +37,9 @@
                 <a class="btn btn-primary modal-action-btn" href="<?php echo e(route('admin.bank.pacslist')); ?>" style="margin-top:20px;">Reset</a>
 
               </div>
-              <!-- <div class="col-sm-2">
-                <a class="btn btn-primary modal-action-btn" href="<?php echo e(route('admin.range.pacsadd')); ?>" style="margin-top:20px;">Add PACS</a>
-              </div> -->
+              <div class="col-sm-2">
+                <a class="btn btn-primary modal-action-btn" href="<?php echo e(route('admin.bank.pacsadd')); ?>" style="margin-top:20px;">Add PACS</a>
+              </div>
             </form>
           </div>
         </div>
@@ -79,12 +79,12 @@
                 <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">
                   Service Provider
                 </th>
-                <!-- <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">
+                <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">
                   Status
                 </th>
                 <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">
                   Action
-                </th> -->
+                </th>
 
 
               </tr>
@@ -218,11 +218,35 @@
 
 
 
-                
+                <td>
+                  <?php if(isset($row->userDetail->status)): ?>
+                  <?php if($row->userDetail->status!=null || $row->userDetail->status!=''): ?>
+                  <?php if($row->userDetail->status == '1'): ?>
+                  <a onclick="return confirm('Are you sure ? Want to change the status!!')" href="<?php echo e(route('admin.bank.pacsstatus', [$row->id])); ?>" title="Change Status" style="color:green"><i class="fa fa-check" aria-hidden="true"></i></a>
+                  <?php else: ?>
+                  <a onclick="return confirm('Are you sure ? Want to change the status!!')" href="<?php echo e(route('admin.bank.pacsstatus', [$row->id])); ?>" title="Change Status" style="color:red">X</a>
+                  <?php endif; ?>
+                  <?php else: ?>
+                  No records found
+                  <?php endif; ?>
+                  <?php else: ?>
+                  No records found
+                  <?php endif; ?>
+                </td>
 
                 
 
-                
+                <td>
+                  <button>
+
+                    <a href="<?php echo e(route('admin.range.pacsedit', [$row->id])); ?>" title="Edit">
+                      <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </a>
+
+                  </button>
+
+
+                </td>
 
               </tr>
             </tbody>

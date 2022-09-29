@@ -39,9 +39,9 @@
                 <a class="btn btn-primary modal-action-btn" href="{{ route('admin.bank.pacslist') }}" style="margin-top:20px;">Reset</a>
 
               </div>
-              <!-- <div class="col-sm-2">
-                <a class="btn btn-primary modal-action-btn" href="{{ route('admin.range.pacsadd') }}" style="margin-top:20px;">Add PACS</a>
-              </div> -->
+              <div class="col-sm-2">
+                <a class="btn btn-primary modal-action-btn" href="{{ route('admin.bank.pacsadd') }}" style="margin-top:20px;">Add PACS</a>
+              </div>
             </form>
           </div>
         </div>
@@ -81,12 +81,12 @@
                 <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">
                   Service Provider
                 </th>
-                <!-- <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">
+                <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">
                   Status
                 </th>
                 <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">
                   Action
-                </th> -->
+                </th>
 
 
               </tr>
@@ -210,13 +210,13 @@
 
 
 
-                {{--<td>
-                  @if(isset($row->status))
-                  @if($row->status!=null || $row->status!='')
-                  @if($row->status == '1')
-                  <a onclick="return confirm('Are you sure ? Want to change the status!!')" href="{{ route('admin.range.pacsstatus', [$row->id]) }}" title="Change Status" style="color:green"><i class="fa fa-check" aria-hidden="true"></i></a>
+                <td>
+                  @if(isset($row->userDetail->status))
+                  @if($row->userDetail->status!=null || $row->userDetail->status!='')
+                  @if($row->userDetail->status == '1')
+                  <a onclick="return confirm('Are you sure ? Want to change the status!!')" href="{{ route('admin.bank.pacsstatus', [$row->id]) }}" title="Change Status" style="color:green"><i class="fa fa-check" aria-hidden="true"></i></a>
                   @else
-                  <a onclick="return confirm('Are you sure ? Want to change the status!!')" href="{{ route('admin.range.pacsstatus', [$row->id]) }}" title="Change Status" style="color:red">X</a>
+                  <a onclick="return confirm('Are you sure ? Want to change the status!!')" href="{{ route('admin.bank.pacsstatus', [$row->id]) }}" title="Change Status" style="color:red">X</a>
                   @endif
                   @else
                   No records found
@@ -224,7 +224,7 @@
                   @else
                   No records found
                   @endif
-                </td>--}}
+                </td>
 
                 {{-- <td>
                                                 @if(isset($row->deleted_at))  
@@ -242,7 +242,7 @@
                                                 @endif  
                                             </td> --}}
 
-                {{--<td>
+                <td>
                   <button>
 
                     <a href="{{ route('admin.range.pacsedit', [$row->id]) }}" title="Edit">
@@ -252,7 +252,7 @@
                   </button>
 
 
-                </td>--}}
+                </td>
 
               </tr>
             </tbody>

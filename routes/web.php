@@ -124,6 +124,9 @@ Route::group(['namespace' => 'admin', 'prefix' => 'securepanel', 'as' => 'admin.
 
             // pacs route by PK date:28/sep/2022
             Route::get('/pacs', 'BankController@pacslist')->name('pacslist');
+            Route::get('/pacsadd','BankController@pacsadd')->name('pacsadd');
+            Route::post('/pacsadd-submit', 'BankController@pacsadd')->name('pacsaddSubmit');
+            Route::get('/pacsstatus/{id}', 'BankController@pacsstatus')->name('pacsstatus')->where('id','[0-9]+');
         });
         
         Route::group(['prefix' => 'zone', 'as' => 'zone.'], function () {
