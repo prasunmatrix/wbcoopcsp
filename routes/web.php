@@ -127,6 +127,8 @@ Route::group(['namespace' => 'admin', 'prefix' => 'securepanel', 'as' => 'admin.
             Route::get('/pacsadd','BankController@pacsadd')->name('pacsadd');
             Route::post('/pacsadd-submit', 'BankController@pacsadd')->name('pacsaddSubmit');
             Route::get('/pacsstatus/{id}', 'BankController@pacsstatus')->name('pacsstatus')->where('id','[0-9]+');
+            Route::get('/pacsedit/{id}', 'BankController@pacsedit')->name('pacsedit')->where('id','[0-9]+');
+            Route::post('/pacsedit-submit/{id}', 'BankController@pacsedit')->name('pacseditSubmit')->where('id','[0-9]+');
         });
         
         Route::group(['prefix' => 'zone', 'as' => 'zone.'], function () {

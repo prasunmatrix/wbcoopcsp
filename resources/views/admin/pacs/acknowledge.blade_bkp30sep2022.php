@@ -136,7 +136,7 @@
                                         <option value="">-Select-</option>
                                 @if (count($blockList))
                                     @foreach ($blockList as $state)
-                                        <option value="{{$state->id}}" @if($state->id == $details->userProfile['block'] ) selected="selected" @endif>{{$state->block_name}}</option>
+                                        <option value="{{$state->id}}" @if($state->id == $details->userProfile['block_id'] ) selected="selected" @endif>{{$state->block_name}}</option>
                                     @endforeach
                                 @endif
                                     </select>

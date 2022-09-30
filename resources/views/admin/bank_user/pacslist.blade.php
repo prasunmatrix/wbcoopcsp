@@ -245,7 +245,7 @@
                 <td>
                   <button>
 
-                    <a href="{{ route('admin.range.pacsedit', [$row->id]) }}" title="Edit">
+                    <a href="{{ route('admin.bank.pacsedit', [$row->id]) }}" title="Edit">
                       <i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
 

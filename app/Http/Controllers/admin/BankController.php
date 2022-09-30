@@ -389,7 +389,7 @@ class BankController extends Controller
 
       return view('admin.bank_user.pacslist', $data);
     } catch (Exception $e) {
-      return redirect()->route('admin.range.pacs')->with('error', $e->getMessage());
+      return redirect()->route('admin.bank.pacslist')->with('error', $e->getMessage());
     }
   }
   /*****************************************************/
@@ -457,7 +457,7 @@ class BankController extends Controller
 
         $Validator = \Validator::make($request->all(), $validationCondition, $validationMessages);
         if ($Validator->fails()) {
-          return redirect()->route('admin.range.pacsadd')->withErrors($Validator)->withInput();
+          return redirect()->route('admin.bank.pacsadd')->withErrors($Validator)->withInput();
         } else {
           //dd($request->all());
           $generatedPassword = $this->rand_string(8);
@@ -530,7 +530,7 @@ class BankController extends Controller
       // dd($data);
       return view('admin.bank_user.pacsadd', $data);
     } catch (Exception $e) {
-      return redirect()->route('admin.range.pacs')->with('error', $e->getMessage());
+      return redirect()->route('admin.bank.pacslist')->with('error', $e->getMessage());
     }
   }
   /*****************************************************/
@@ -567,10 +567,140 @@ class BankController extends Controller
         }
         return redirect()->back();
       } else {
-        return redirect()->route('admin.range.pacs')->with('error', 'Invalid state');
+        return redirect()->route('admin.bank.pacslist')->with('error', 'Invalid state');
       }
     } catch (Exception $e) {
-      return redirect()->route('admin.range.pacs')->with('error', $e->getMessage());
+      return redirect()->route('admin.bank.pacslist')->with('error', $e->getMessage());
+    }
+  }
+  /*****************************************************/
+  # PacsController
+  # Function name : Edit
+  # Author        :
+  # Created Date  : 24-09-2020
+  # Purpose       : Edit Range user
+  # Params        : Request $request
+  /*****************************************************/
+  public function pacsedit(Request $request, $id = null)
+  {
+    $data['page_title']  = 'Edit PACS';
+    $data['panel_title'] = 'Edit PACS';
+
+    try {
+      $logginUser = AdminHelper::loggedUser();
+      $pageNo = Session::get('pageNo') ? Session::get('pageNo') : '';
+      $data['pageNo'] = $pageNo;
+      $userDetails = UserDetails::where('id', $id)->first();
+      //dd($userDetails);
+      $pacsDetails = User::find($userDetails->user_id);
+      //dd($pacsDetails->userProfile);
+      $bankList = User::whereUserParrentId('0')->whereUserType('1')->where('status', '1')->orderBy('full_name', 'asc')->get();
+      $data['bankList'] = $bankList;
+      $zoneList = User::whereUserParrentId('0')->whereUserType('2')->where('status', '1')->orderBy('full_name', 'asc')->get();
+      $data['zoneList'] = $zoneList;
+      $rangeList = User::whereUserType('3')->where('status', '1')->orderBy('full_name', 'asc')->get();
+      $data['rangeList'] = $rangeList;
+      // dd($rangeList);
+      $districtList = District::select('id', 'district_name')->where('status', '1')->orderBy('district_name', 'asc')->get();
+      $data['districtList'] = $districtList;
+      $blockList = Block::select('id','block_name')->where('status', '1')->orderBy('block_name', 'asc')->get();
+      //dd($blockList);
+      $data['blockList'] = $blockList;
+      $softwareList = Software::select('id', 'full_name')->where('status', '1')->orderBy('full_name', 'asc')->get();
+      $data['softwareList'] = $softwareList;
+      $societiesList = Societie::select('id', 'name')->where('status', '1')->orderBy('name', 'asc')->get();
+      $data['societiesList'] = $societiesList;
+
+      $data['id'] = $id;
+      //dd($data);
+      if ($request->isMethod('POST')) {
+        //dd($request->all());
+        $pacsDetails = User::find($request->user_id);
+        if ($pacsDetails == null) {
+          return redirect()->route('admin.bank.pacslist');
+        }
+        $validationCondition = array(
+          'full_name'     => 'required|min:2|max:255',
+          // 'email'         => 'required|regex:/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/|unique:'.(new User)->getTable().',email',
+          'phone_no'      => 'required|regex:/^[0-9]\d*(\.\d+)?$/',
+
+          'address'       => 'required|min:2|max:255',
+        );
+        $validationMessages = array(
+          'full_name.required'        => 'Please enter name',
+          'full_name.min'             => 'Name should be at least 2 characters',
+          'full_name.max'             => 'Name should not be more than 255 characters',
+          // 'email.required'            => 'Sorry!! Email is required',
+          // 'email.regex'               => 'Sorry!! Please send a valid email',
+          'phone_no.required'         => 'Sorry!! Phone number is required',
+          'phone_no.regex'            => 'Sorry!! Only number required',
+          'bank_id.required'          => 'Please select Bank',
+          'zone_id.required'          => 'Please select Zone',
+          'range_id.required'         => 'Please select Range',
+          'district_id.required'      => 'Please select District',
+          // 'block_id.required'         => 'Please select Block',
+          'software_using.required'   => 'Please select Software',
+          'address.required'          => 'Please enter address',
+          'address.min'               => 'Address should be at least 2 characters',
+          'address.max'               => 'Address should not be more than 255 characters',
+        );
+
+
+        $Validator = \Validator::make($request->all(), $validationCondition, $validationMessages);
+        if ($Validator->fails()) {
+          return redirect()->back()->withErrors($Validator)->withInput();
+        } else {
+
+
+          $pacsDetails->full_name      = isset($request->full_name) ? $request->full_name : NULL;
+          $pacsDetails->email          = isset($request->email) ? $request->email : NULL;
+          $pacsDetails->phone_no       = isset($request->phone_no) ? $request->phone_no : NULL;
+          $savePacs                    = $pacsDetails->save();
+
+          if ($savePacs) {
+
+            $newPacsDetails = UserDetails::whereUserId($request->user_id)->first();
+
+            $image = $request->file('profile_image');
+            if ($image != '') {
+              $originalFileNameCat = $image->getClientOriginalName();
+              $extension = pathinfo($originalFileNameCat, PATHINFO_EXTENSION);
+              $filename = 'member_' . strtotime(date('Y-m-d H:i:s')) . '.' . $extension;
+              $image_resize = Image::make($image->getRealPath());
+              $image_resize->save(public_path('uploads/member/' . $filename));
+
+              $newPacsDetails->profile_image = $filename;
+            }
+
+            $newPacsDetails->address                        = isset($request->address) ? $request->address : NULL;
+            $newPacsDetails->socity_type                    = isset($request->socity_type) ? $request->socity_type : NULL;
+            $newPacsDetails->socity_registration_no         = isset($request->socity_registration_no) ? $request->socity_registration_no : NULL;
+            $newPacsDetails->district_registration_no       = isset($request->district_registration_no) ? $request->district_registration_no : NULL;
+            $newPacsDetails->bank_id                        = isset($request->bank_id) ? $request->bank_id : NULL;
+            $newPacsDetails->zone_id                        = isset($request->zone_id) ? $request->zone_id : NULL;
+            $newPacsDetails->range_id                       = isset($request->range_id) ? $request->range_id : NULL;
+            $newPacsDetails->district_id                    = isset($request->district_id) ? $request->district_id : NULL;
+            $newPacsDetails->block                          = isset($request->block) ? $request->block : NULL;
+            $newPacsDetails->software_using                 = isset($request->software_using) ? $request->software_using : NULL;
+            $newPacsDetails->unique_id                      = isset($request->unique_id) ? $request->unique_id : NULL;
+            $savePacsDetails                                = $newPacsDetails->save();
+
+            $request->session()->flash('alert-success', 'Pacs has been updated successfully');
+            return redirect()->route('admin.bank.pacslist', ['page' => $pageNo]);
+          } else {
+            $request->session()->flash('alert-danger', 'An error occurred while updating the pacs');
+            return redirect()->back();
+          }
+        }
+      }
+
+
+      return view('admin.bank_user.pacsedit')->with([
+        'details' => $pacsDetails, 'data' => $data, 'bankList' => $bankList, 'zoneList' => $zoneList, 'rangeList' => $rangeList,
+        'districtList' => $districtList, 'softwareList' => $softwareList, 'societiesList' => $societiesList,'blockList'=>$blockList
+      ]);
+    } catch (Exception $e) {
+      return redirect()->route('admin.bank.pacslist')->with('error', $e->getMessage());
     }
   }
 }

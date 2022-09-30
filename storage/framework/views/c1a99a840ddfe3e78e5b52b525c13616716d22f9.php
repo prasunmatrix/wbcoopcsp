@@ -96,6 +96,11 @@
         <?php if( (Auth::guard('admin')->user()->user_type==3) ): ?>
         <li <?php if(Route::current()->getName() == 'admin.range.pacs'  || Route::current()->getName() == 'admin.range.pacsedit' || Route::current()->getName() == 'admin.range.pacsadd'): ?>class="active"  <?php endif; ?>><a href="<?php echo e(route('admin.range.pacs')); ?>"><i class="fa fa-wrench"></i>PACS</a></li>
         <?php endif; ?>
+        
+        <?php if( (Auth::guard('admin')->user()->user_type==1) ): ?>
+        <li <?php if(Route::current()->getName() == 'admin.bank.pacslist'): ?>class="active"  <?php endif; ?>><a href="<?php echo e(route('admin.bank.pacslist')); ?>"><i class="fa fa-wrench"></i>PACS</a></li>
+        <?php endif; ?>
+
         <li <?php if(Route::current()->getName() == 'admin.complain.list'  || Route::current()->getName() == 'admin.complain.edit' || Route::current()->getName() == 'admin.complain.add'): ?>class="active" <?php elseif(session('password_changed') || session('pacs_acknowledge')): ?> class="disabled" <?php endif; ?>><a href="<?php echo e(route('admin.complain.list')); ?>"><i class="fa fa-cc"></i>Complain Raised</a></li>
         
         <?php if( (Auth::guard('admin')->user()->user_type!=0) ): ?>
