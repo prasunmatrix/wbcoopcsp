@@ -370,7 +370,7 @@ class PacsController extends Controller
             $data['id'] = $user->id;
 
             if ($request->isMethod('POST')) {
-               // dd($request->all());
+                //dd($request->all());
                 $pacsDetails = User::find($request->user_id);
                 if ($pacsDetails == null) {
                     return redirect()->route('admin.pacs.list');
@@ -443,7 +443,7 @@ class PacsController extends Controller
                         $newPacsDetails->range_id                       = isset($request->range_id) ? $request->range_id : NULL;
                         $newPacsDetails->district_id                    = isset($request->district_id) ? $request->district_id : NULL;
                         //$newPacsDetails->block_id                       = isset($request->block_id) ? $request->block_id : NULL; \\changes by pk date:27/09/2022
-                        $newPacsDetails->software_using                 = isset($request->software_using) ? $request->software_using : NULL;
+                        //$newPacsDetails->software_using                 = isset($request->software_using) ? $request->software_using : NULL;
                         $newPacsDetails->information_correct_verified   = '1';
                         $newPacsDetails->unique_id_noted                = '1';
                         $newPacsDetails->pacs_using_software            = '1';
