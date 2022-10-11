@@ -239,7 +239,7 @@
                 <td>
                   <button>
 
-                    <a href="<?php echo e(route('admin.range.pacsedit', [$row->id])); ?>" title="Edit">
+                    <a href="<?php echo e(route('admin.bank.pacsedit', [$row->id])); ?>" title="Edit">
                       <i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
 

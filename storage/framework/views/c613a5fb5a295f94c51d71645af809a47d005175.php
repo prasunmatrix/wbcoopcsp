@@ -19,9 +19,15 @@
             <div class="box box-primary">
                 <?php echo $__env->make('admin.elements.notification', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                 
-               
-                 <form method="POST" name="edit_acknowledgement_form" id="edit_acknowledgement_form" action="<?php echo e(route('admin.pacs.pacsAcknowledement')); ?>" enctype="multipart/form-data">
-                    <?php echo e(csrf_field()); ?>                     
+                <?php echo e(Form::open(array(
+		                            'method'=> 'POST',
+		                            'class' => '',
+                                    'route' => ['admin.pacs.editSubmit', $details["id"]],
+                                    'title'  => 'editCityForm',
+                                    'id'    => 'editCityForm',
+                                    'files' => true,
+		                            'novalidate' => true))); ?>
+
                     <div class="box-body cus-body">
                     <div class="row">
                             <div class="col-md-6">
@@ -31,8 +37,7 @@
                                                                 'id' => 'full_name',
                                                                 'placeholder' => 'Name',
                                                                 'class' => 'form-control',
-                                                                'required' => 'required',
-                                                                'readonly' => $readonlyStatus
+                                                                'required' => 'required'
                                                                  ))); ?> 
                                 </div>
                             </div>
@@ -42,8 +47,8 @@
                                 <?php echo e(Form::text('email', $details->email, array(
                                                                 'id' => 'email',
                                                                 'placeholder' => 'Email',
-                                                                'class' => 'form-control',
-                                                                'readonly' => $readonlyStatus
+                                                                'class' => 'form-control'
+                                                                
                                                                  ))); ?>
 
                                 </div>
@@ -59,8 +64,18 @@
                                                                 'id' => 'phone_no',
                                                                 'placeholder' => 'Phone Number',
                                                                 'class' => 'form-control',
-                                                                'required' => 'required',
-                                                                'readonly' => $readonlyStatus
+                                                                'required' => 'required'
+                                                                 ))); ?> 
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                <label for="title">Unique ID</label>
+                                <?php echo e(Form::text('unique_id', $details->userProfile['unique_id'], array(
+                                                                'id' => 'unique_id',
+                                                                'placeholder' => 'Unique ID',
+                                                                'class' => 'form-control'
                                                                  ))); ?> 
                                 </div>
                             </div>
@@ -72,7 +87,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                 <label for="title">Bank<span class="red_star">*</span></label>
-                                    <select name="bank_id" id="bank_id" class="form-control" value="<?php echo e(old('bank_id')); ?>" required <?php if($readonlyStatus): ?> disabled="true" <?php endif; ?>>
+                                    <select name="bank_id" id="bank_id" class="form-control" value="<?php echo e(old('bank_id')); ?>" required>
                                         <option value="">-Select-</option>
                                 <?php if(count($bankList)): ?>
                                     <?php $__currentLoopData = $bankList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $state): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -85,7 +100,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                 <label for="title">Zone<span class="red_star">*</span></label>
-                                    <select name="zone_id" id="zone_id" class="form-control" value="<?php echo e(old('zone_id')); ?>" onchange="getPacsRange(this.value)" required <?php if($readonlyStatus): ?> disabled="true" <?php endif; ?>>
+                                    <select name="zone_id" id="zone_id" class="form-control" value="<?php echo e(old('zone_id')); ?>" required>
                                         <option value="">-Select-</option>
                                 <?php if(count($zoneList)): ?>
                                     <?php $__currentLoopData = $zoneList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $state): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -102,7 +117,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                 <label for="title">Range<span class="red_star">*</span></label>
-                                    <select name="range_id" id="range_id" class="form-control" value="<?php echo e(old('range_id')); ?>" required <?php if($readonlyStatus): ?> disabled="true" <?php endif; ?>>
+                                    <select name="range_id" id="range_id" class="form-control" value="<?php echo e(old('range_id')); ?>">
                                         <option value="">-Select-</option>
                                 <?php if(count($rangeList)): ?>
                                     <?php $__currentLoopData = $rangeList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $state): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -115,7 +130,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                 <label for="title">District<span class="red_star">*</span></label>
-                                    <select name="district_id" id="district_id" class="form-control" value="<?php echo e(old('district_id')); ?>" onchange="getPacsBlock(this.value)"  required <?php if($readonlyStatus): ?> disabled="true" <?php endif; ?>>
+                                    <select name="district_id" id="district_id" class="form-control" value="<?php echo e(old('district_id')); ?>"  required>
                                         <option value="">-Select-</option>
                                 <?php if(count($districtList)): ?>
                                     <?php $__currentLoopData = $districtList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $state): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -131,21 +146,18 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                <label for="title">Block<span class="red_star">*</span></label>
-                                    <select name="block_id" id="block_id" class="form-control" value="<?php echo e(old('block_id')); ?>" required <?php if($readonlyStatus): ?> disabled="true" <?php endif; ?>>
-                                        <option value="">-Select-</option>
-                                <?php if(count($blockList)): ?>
-                                    <?php $__currentLoopData = $blockList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $state): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($state->id); ?>" <?php if($state->id == $details->userProfile['block'] ): ?> selected="selected" <?php endif; ?>><?php echo e($state->block_name); ?></option>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                <?php endif; ?>
-                                    </select>
+                                <label for="title">Block</label>
+                                <?php echo e(Form::text('block', $details->userProfile['block'], array(
+                                                                'id' => 'block',
+                                                                'placeholder' => 'Block',
+                                                                'class' => 'form-control'
+                                                                 ))); ?> 
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                <label for="title">Service Provider<span class="red_star">*</span></label>
-                                    <select name="software_using" id="software_using" class="form-control" value="<?php echo e(old('software_using')); ?>" required <?php if($readonlyStatus): ?> disabled="true" <?php endif; ?> disabled>
+                                <label for="title">Service Provider</label>
+                                    <select name="software_using" id="software_using" class="form-control" value="<?php echo e(old('software_using')); ?>">
                                         <option value="">-Select-</option>
                                 <?php if(count($softwareList)): ?>
                                     <?php $__currentLoopData = $softwareList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $state): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -167,8 +179,7 @@
                                                                 'placeholder' => 'Address',
                                                                 'class' => 'form-control',
                                                                 'rows'  => 3,
-                                                                'required' => 'required',
-                                                                'readonly' => $readonlyStatus
+                                                                'required' => 'required'
                                                                  ))); ?>
 
                                 </div>
@@ -176,7 +187,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="title">Society Type<span class="red_star">*</span></label>
-                                        <select name="socity_type" id="socity_type" class="form-control" value="<?php echo e(old('socity_type')); ?>" required <?php if($readonlyStatus): ?> disabled="true" <?php endif; ?>>
+                                        <select name="socity_type" id="socity_type" class="form-control" value="<?php echo e(old('socity_type')); ?>" required>
                                             <option value="">-Select-</option>
                                                 <?php if(count($societiesList)): ?>
                                                     <?php $__currentLoopData = $societiesList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $state): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -190,26 +201,22 @@
                         <div class="class row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="name">Society Registration No<span class="red_star">*</span></label>
+                                    <label for="name">Society Registration No</label>
                                     <?php echo e(Form::text('socity_registration_no', $details->userProfile->socity_registration_no, array(
                                                                 'id' => 'socity_registration_no',
                                                                 'placeholder' => 'Society Registration No',
-                                                                'class' => 'form-control',
-                                                                'required' => 'required',
-                                                                'readonly' => $readonlyStatus
+                                                                'class' => 'form-control'
                                                                  ))); ?>
 
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="name">E District Registration No<span class="red_star">*</span></label>
+                                    <label for="name">E District Registration No</label>
                                     <?php echo e(Form::text('district_registration_no', $details->userProfile->district_registration_no, array(
                                                                 'id' => 'district_registration_no',
                                                                 'placeholder' => 'District Registration No',
-                                                                'class' => 'form-control',
-                                                                'required' => 'required',
-                                                                'readonly' => $readonlyStatus
+                                                                'class' => 'form-control'
                                                                  ))); ?>
 
                                 </div>
@@ -222,60 +229,24 @@
                                         <?php echo e(Form::file('profile_image', array(
                                                                 'id' => 'profile_image',
                                                                 'class' => 'form-control',
-                                                                'placeholder' => 'Image',
-                                                                'readonly' => $readonlyStatus 
+                                                                'placeholder' => 'Image' 
                                                                  ))); ?>
 
                                         </div>
                                         <div class="form-group">
-                                        <?php
-                                        $imgPath = \URL:: asset('images').'/admin/'.Helper::NO_IMAGE;
-                                        if ($details->userProfile->profile_image != null) {
-                                            if(file_exists(public_path('/uploads/member'.'/'.$details->userProfile->profile_image))) {
-                                            $imgPath = \URL::asset('uploads/member').'/'.$details->userProfile->profile_image;
-                                            }
-                                        }
-                                        ?>
-                                        <img src="<?php echo e($imgPath); ?>" alt="" height="50px">
-        					            </div>
+                                <?php
+                                $imgPath = \URL:: asset('images').'/admin/'.Helper::NO_IMAGE;
+                                if ($details->userProfile->profile_image != null) {
+                                    if(file_exists(public_path('/uploads/member'.'/'.$details->userProfile->profile_image))) {
+                                    $imgPath = \URL::asset('uploads/member').'/'.$details->userProfile->profile_image;
+                                    }
+                                }
+                                ?>
+                                <img src="<?php echo e($imgPath); ?>" alt="" height="50px">
+					            </div>
                                    
-                            	</div>
-                                <div class="col-md-6">
-                                <div class="form-group">
-                                    
-                                    <input type="checkbox" name="information_correct_verified" id="information_correct_verified" value="1" <?php if($readonlyStatus): ?> checked disabled <?php endif; ?> >
-                                    <label for="name"><span class="red_star">*</span>All information entered by Range Office for this PACS is correct and verified by me.</label>
+                            	    </div>
                                 </div>
-                            </div>
-
-                        </div>
-
-                        <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        
-                                        <input type="checkbox" name="unique_id_noted" id="unique_id_noted" value="1" <?php if($readonlyStatus): ?> checked disabled <?php endif; ?>>
-                                        <label for="name"><span class="red_star">*</span>We have noted down 10 digit Unique ID of PACS.</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        
-                                        <input type="checkbox" name="pacs_using_software" id="pacs_using_software" value="1" <?php if($readonlyStatus): ?> checked disabled <?php endif; ?>>
-                                        <label for="name"><span class="red_star">*</span>PACS is using the service provider mentioned above.</label>
-                                    </div>
-                                </div>
-
-                        </div>
-                        <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        
-                                        <input type="checkbox" name="pacs_uploaded_format" id="pacs_uploaded_format" value="1" <?php if($readonlyStatus): ?> checked disabled <?php endif; ?> >
-                                        <label for="name"><span class="red_star">*</span>PACS has uploaded duly filled in Format - 1 (applicable only for PACS using S/W other than TCS</label>
-                                    </div>
-                                </div>
-                        </div>
                         </div>
                     </div>
                     <input type="hidden" name="user_id" id="user_id" value="<?php echo e($details->id); ?>">
@@ -285,7 +256,8 @@
                             <a href="<?php echo e(route('admin.pacs.list').'?page='.$data['pageNo']); ?>" title="Cancel" class="btn btn-block btn-default btn_width_reset">Cancel</a>
                         </div>
                     </div>
-                </form>
+                <?php echo Form::close(); ?>
+
             </div>
         </div>
     </div>
@@ -370,4 +342,4 @@ $.ajax({
    });
 }
 </script>
-<?php echo $__env->make('admin.layouts.app', ['title' => $data['panel_title']], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\matrixmedia\wbcoopcsp\resources\views/admin/pacs/acknowledge.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('admin.layouts.app', ['title' => $data['panel_title']], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\matrixmedia\wbcoopcsp\resources\views/admin/pacs/edit.blade.php ENDPATH**/ ?>
