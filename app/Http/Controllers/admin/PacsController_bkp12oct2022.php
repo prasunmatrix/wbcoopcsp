@@ -221,19 +221,13 @@ class PacsController extends Controller
             $data['bankList'] = $bankList;
             $zoneList = User::whereUserParrentId('0')->whereUserType('2')->where('status', '1')->orderBy('full_name', 'asc')->get();
             $data['zoneList'] = $zoneList;
-            //\DB::enableQueryLog();
-            //$rangeList = User::whereUserParrentId($pacsDetails->userProfile->zone_id)->whereUserType('3')->where('status', '1')->orderBy('full_name', 'asc')->get();
-            //changes the query by PK date: 12/10/2022
-            //(\DB::getQueryLog());
-            $rangeList = User::whereUserType('3')->where('status', '1')->orderBy('full_name', 'asc')->get();
+            $rangeList = User::whereUserParrentId($pacsDetails->userProfile->zone_id)->whereUserType('3')->where('status', '1')->orderBy('full_name', 'asc')->get();
             $data['rangeList'] = $rangeList;
-            //dd($rangeList);
+            // dd($rangeList);
             $districtList = District::select('id','district_name')->where('status', '1')->orderBy('district_name', 'asc')->get();
             $data['districtList'] = $districtList;
-            //block list open by pk date: 12/10/2022
-            $blockList = Block::select('id','block_name')->where('status', '1')->orderBy('block_name', 'asc')->get();
-            $data['blockList'] = $blockList;
-            //block list open by pk date: 12/10/2022
+            // $blockList = Block::select('id','block_name')->where('status', '1')->orderBy('block_name', 'asc')->get();
+            // $data['blockList'] = $blockList;
             $softwareList = Software::select('id','full_name')->where('status', '1')->orderBy('full_name', 'asc')->get();
             $data['softwareList'] = $softwareList;
             $societiesList = Societie::select('id','name')->where('status', '1')->orderBy('name', 'asc')->get();
@@ -325,7 +319,7 @@ class PacsController extends Controller
             
             
             return view('admin.pacs.edit')->with(['details' => $pacsDetails, 'data' => $data, 'bankList' => $bankList,'zoneList' => $zoneList,'rangeList' => $rangeList,
-            'districtList' => $districtList, 'softwareList' => $softwareList, 'societiesList' => $societiesList,'blockList' => $blockList]);
+            'districtList' => $districtList, 'softwareList' => $softwareList, 'societiesList' => $societiesList]);
 
         } catch (Exception $e) {
             return redirect()->route('admin.pacs.list')->with('error', $e->getMessage());

@@ -187,11 +187,7 @@
                 <td class="sorting_1">
                   @if(isset($row->block))
                   @if($row->block != NULL || $row->block !='')
-                  @if($row->userBlock!=NULL || $row->userBlock!='')
-                  {{ $row->userBlock->block_name }}
-                  @else
-                  {{$row->block}}
-                  @endif
+                  {{ $row->block }}
                   @else
                   No records found
                   @endif

@@ -143,7 +143,7 @@
                             
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            {{--<div class="col-md-6">
                                 <div class="form-group">
                                 <label for="title">Block</label>
                                 {{ Form::text('block', $details->userProfile['block'], array(
@@ -151,6 +151,19 @@
                                                                 'placeholder' => 'Block',
                                                                 'class' => 'form-control'
                                                                  )) }} 
+                                </div>
+                            </div> --}}
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                <label for="title">Block<span class="red_star">*</span></label>
+                                    <select name="block" id="block" class="form-control" value="{{old('block')}}">
+                                        <option value="">-Select-</option>
+                                @if (count($blockList))
+                                    @foreach ($blockList as $state)
+                                        <option value="{{$state->id}}" @if($state->id == $details->userProfile['block'] ) selected="selected" @endif>{{$state->block_name}}</option>
+                                    @endforeach
+                                @endif
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-6">

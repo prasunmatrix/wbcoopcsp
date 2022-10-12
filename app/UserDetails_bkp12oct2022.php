@@ -47,7 +47,7 @@ class UserDetails extends Model
 		return $this->belongsTo('\App\District', 'district_id', 'id');
   }
   public function userBlock() {
-		return $this->belongsTo('\App\Block', 'block', 'id');
+		return $this->belongsTo('\App\Block', 'block_id', 'id');
     }
     
     public function userSoftware() {
