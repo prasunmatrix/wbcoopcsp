@@ -193,8 +193,13 @@
                 <td class="sorting_1">
                   <?php if(isset($row->block)): ?>
                   <?php if($row->block != NULL || $row->block !=''): ?>
+                  <?php if($row->userBlock!=NULL || $row->userBlock!=''): ?>
+                  <?php echo e($row->userBlock->block_name); ?>
+
+                  <?php else: ?>
                   <?php echo e($row->block); ?>
 
+                  <?php endif; ?>
                   <?php else: ?>
                   No records found
                   <?php endif; ?>

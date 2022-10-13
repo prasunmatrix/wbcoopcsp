@@ -6,7 +6,7 @@
   </h1>
   <ol class="breadcrumb">
     <li><a href="<?php echo e(route('admin.dashboard')); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="<?php echo e(route('admin.bank.pacslist')); ?>"><i class="fa fa-home" aria-hidden="true"></i> Pacs List</a></li>
+    <li><a href="<?php echo e(route('admin.pacs.list')); ?>"><i class="fa fa-home" aria-hidden="true"></i> Pacs List</a></li>
     <li class="active"><?php echo e($page_title); ?></li>
   </ol>
 </section>
@@ -21,7 +21,7 @@
         <?php echo e(Form::open(array(
 		                            'method'=> 'POST',
 		                            'class' => '',
-                                    'route' => ['admin.bank.pacsaddSubmit'],
+                                    'route' => ['admin.pacs.addSubmit'],
                                     'name'  => 'addCityForm',
                                     'id'    => 'addCityForm',
                                     'files' => true,
@@ -69,7 +69,6 @@
 
               </div>
             </div>
-
             <div class="col-md-6">
               <div class="form-group">
                 <label for="title">Unique ID</label>
@@ -147,33 +146,35 @@
           </div>
           <div class="row">
             
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="title">Block<span class="red_star">*</span></label>
-                <select name="block" id="block" class="form-control" value="<?php echo e(old('block')); ?>" required>
-                  <option value="">-Select-</option>
-                  <?php if(count($blockList)): ?>
-                  <?php $__currentLoopData = $blockList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $state): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                  <option value="<?php echo e($state->id); ?>" <?php if($state->id == old('block') ): ?> selected="selected" <?php endif; ?>><?php echo e($state->block_name); ?></option>
-                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                  <?php endif; ?>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="title">Service Provider<span class="red_star">*</span></label>
-                <select name="software_using" id="software_using" class="form-control" value="<?php echo e(old('software_using')); ?>" required>
-                  <option value="">-Select-</option>
-                  <?php if(count($softwareList)): ?>
-                  <?php $__currentLoopData = $softwareList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $state): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                  <option value="<?php echo e($state->id); ?>" <?php if($state->id == old('software_using') ): ?> selected="selected" <?php endif; ?>><?php echo e($state->full_name); ?></option>
-                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                  <?php endif; ?>
-                </select>
-              </div>
-            </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="title">Block<span class="red_star"></span></label>
+            <select name="block" id="block" class="form-control" value="<?php echo e(old('block')); ?>">
+              <option value="">-Select-</option>
+              <?php if(count($blockList)): ?>
+              <?php $__currentLoopData = $blockList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $state): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+              <option value="<?php echo e($state->id); ?>" <?php if($state->id == old('block') ): ?> selected="selected" <?php endif; ?>><?php echo e($state->block_name); ?></option>
+              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+              <?php endif; ?>
+            </select>
           </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="title">Service Provider</label>
+            <select name="software_using" id="software_using" class="form-control" value="<?php echo e(old('software_using')); ?>">
+              <option value="">-Select-</option>
+              <?php if(count($softwareList)): ?>
+              <?php $__currentLoopData = $softwareList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $state): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+              <option value="<?php echo e($state->id); ?>" <?php if($state->id == old('software_using') ): ?> selected="selected" <?php endif; ?>><?php echo e($state->full_name); ?></option>
+              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+              <?php endif; ?>
+            </select>
+          </div>
+        </div>
+
+
+      </div>
       <div class="class row">
         <div class="col-md-6">
           <div class="form-group">
@@ -245,7 +246,7 @@
   <div class="box-footer">
     <div class="col-md-6">
       <button type="submit" class="btn btn-primary">Submit</button>
-      <a href="<?php echo e(route('admin.range.pacs')); ?>" class="btn btn-block btn-default btn_width_reset">Cancel</a>
+      <a href="<?php echo e(route('admin.pacs.list')); ?>" class="btn btn-block btn-default btn_width_reset">Cancel</a>
     </div>
   </div>
   <?php echo Form::close(); ?>
@@ -261,7 +262,7 @@
 
     $.ajax({
 
-      url: "<?php echo e(route('admin.range.getRangeZone')); ?>",
+      url: "<?php echo e(route('admin.pacs.getPacsZone')); ?>",
       type: 'get',
       dataType: "json",
       data: {
@@ -289,7 +290,7 @@
 
     $.ajax({
 
-      url: "<?php echo e(route('admin.range.getRangeRange')); ?>",
+      url: "<?php echo e(route('admin.pacs.getPacsRange')); ?>",
       type: 'get',
       dataType: "json",
       data: {
@@ -317,7 +318,7 @@
 
     $.ajax({
 
-      url: "<?php echo e(route('admin.range.getRangeBlock')); ?>",
+      url: "<?php echo e(route('admin.pacs.getPacsBlock')); ?>",
       type: 'get',
       dataType: "json",
       data: {
@@ -341,4 +342,4 @@
     });
   }
 </script>
-<?php echo $__env->make('admin.layouts.app', ['title' => $panel_title], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\matrixmedia\wbcoopcsp\resources\views/admin/bank_user/pacsadd.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('admin.layouts.app', ['title' => $panel_title], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\matrixmedia\wbcoopcsp\resources\views/admin/pacs/add.blade.php ENDPATH**/ ?>

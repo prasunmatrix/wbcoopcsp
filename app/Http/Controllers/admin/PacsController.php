@@ -89,8 +89,10 @@ class PacsController extends Controller
             $data['rangeList'] = $rangeList;
             $districtList = District::select('id','district_name')->where('status', '1')->orderBy('district_name', 'asc')->get();
             $data['districtList'] = $districtList;
-            // $blockList = Block::select('id','block_name')->where('status', '1')->orderBy('block_name', 'asc')->get();
-            // $data['blockList'] = $blockList;
+            //block list open by pk date: 13/10/2022
+            $blockList = Block::select('id','block_name')->where('status', '1')->orderBy('block_name', 'asc')->get();
+            $data['blockList'] = $blockList;
+            //block list open by pk date: 13/10/2022
             $softwareList = Software::select('id','full_name')->where('status', '1')->orderBy('full_name', 'asc')->get();
             $data['softwareList'] = $softwareList;
             $societiesList = Societie::select('id','name')->where('status', '1')->orderBy('name', 'asc')->get();

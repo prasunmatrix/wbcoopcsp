@@ -116,7 +116,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                 <label for="title">Range<span class="red_star">*</span></label>
-                                    <select name="range_id" id="range_id" class="form-control" value="{{old('range_id')}}">
+                                    <select name="range_id" id="range_id" class="form-control" value="{{old('range_id')}}" required>
                                         <option value="">-Select-</option>
                                 @if (count($rangeList))
                                     @foreach ($rangeList as $state)
@@ -155,7 +155,7 @@
                             </div> --}}
                             <div class="col-md-6">
                                 <div class="form-group">
-                                <label for="title">Block<span class="red_star">*</span></label>
+                                <label for="title">Block<span class="red_star"></span></label>
                                     <select name="block" id="block" class="form-control" value="{{old('block')}}">
                                         <option value="">-Select-</option>
                                 @if (count($blockList))
