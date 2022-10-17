@@ -117,7 +117,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                 <label for="title">Range<span class="red_star">*</span></label>
-                                    <select name="range_id" id="range_id" class="form-control" value="<?php echo e(old('range_id')); ?>">
+                                    <select name="range_id" id="range_id" class="form-control" value="<?php echo e(old('range_id')); ?>" required>
                                         <option value="">-Select-</option>
                                 <?php if(count($rangeList)): ?>
                                     <?php $__currentLoopData = $rangeList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $state): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -147,7 +147,7 @@
                             
                             <div class="col-md-6">
                                 <div class="form-group">
-                                <label for="title">Block<span class="red_star">*</span></label>
+                                <label for="title">Block<span class="red_star"></span></label>
                                     <select name="block" id="block" class="form-control" value="<?php echo e(old('block')); ?>">
                                         <option value="">-Select-</option>
                                 <?php if(count($blockList)): ?>
