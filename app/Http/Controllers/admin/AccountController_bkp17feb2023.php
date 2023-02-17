@@ -54,29 +54,26 @@ class AccountController extends Controller
 
         
         if ($loginUser->user_type == 0){
-
-        // new query by PK for same count datatable and provider  date:17feb 2023//  
-        //$query = UserDetails::whereNotNull('range_id');
-        $query = UserDetails::where('software_using','!=','NULL');
-        // new query by PK for same count datatable and provider  date:17feb 2023//
-
         //\DB::enableQueryLog();
+        $query = UserDetails::whereNotNull('range_id');
         $softwareDetails = UserDetails::with(['userSoftware'])->select('*', \DB::raw('count(*) as total'))
         ->where('software_using','!=','NULL')
         ->groupBy('software_using')
         ->get();
         //dd(\DB::getQueryLog());
-        
         $test = UserDetails::select('software_using')->where('software_using','!=','NULL')->get()->count();
 
         } elseif($loginUser->user_type == 1){
+            //\DB::enableQueryLog();
             $query = UserDetails::whereBankId($loginUser->id)->whereNotNull('range_id');
+            //dd(\DB::getQueryLog());
+            //\DB::enableQueryLog();
             $softwareDetails = UserDetails::with(['userSoftware'])->select('*', \DB::raw('count(*) as total'))
             ->where('software_using','!=','NULL')
             ->where('bank_id',$loginUser->id)
             ->groupBy('software_using')
             ->get();
-
+            //dd(\DB::getQueryLog());
             $test = UserDetails::select('software_using')->where('software_using','!=','NULL')->where('bank_id',$loginUser->id)->get()->count();
           
         } elseif($loginUser->user_type == 2){
@@ -106,7 +103,9 @@ class AccountController extends Controller
         }
         $exists = $query->count();
             if ($exists > 0) {
+                //\DB::enableQueryLog();
                 $list = $query->sortable()->paginate(AdminHelper::ADMIN_LIST_LIMIT);
+                //dd(\DB::getQueryLog());
                 $data['list'] = $list;
             } else {
                 $data['list'] = array();
