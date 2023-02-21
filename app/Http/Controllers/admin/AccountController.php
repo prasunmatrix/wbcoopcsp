@@ -55,19 +55,30 @@ class AccountController extends Controller
         
         if ($loginUser->user_type == 0){
 
-        // new query by PK for same count datatable and provider  date:17feb 2023//  
-        //$query = UserDetails::whereNotNull('range_id');
-        $query = UserDetails::where('software_using','!=','NULL');
-        // new query by PK for same count datatable and provider  date:17feb 2023//
+        // new query by PK for same count datatable and provider  date:21feb 2023//  
+        $query = UserDetails::whereNotNull('range_id')->where('software_using','!=','NULL');
+        //$query = UserDetails::where('software_using','!=','NULL');
+        // new query by PK for same count datatable and provider  date:21feb 2023//
 
         //\DB::enableQueryLog();
-        $softwareDetails = UserDetails::with(['userSoftware'])->select('*', \DB::raw('count(*) as total'))
+        // $softwareDetails = UserDetails::with(['userSoftware'])->select('*', \DB::raw('count(*) as total'))
+        // ->where('software_using','!=','NULL')
+        // ->groupBy('software_using')
+        // ->get();
+
+        // new query by PK for same count datatable and provider  date:21feb 2023//
+        $softwareDetails = UserDetails::whereNotNull('range_id')->select('*', \DB::raw('count(*) as total'))
         ->where('software_using','!=','NULL')
         ->groupBy('software_using')
         ->get();
+        // new query by PK for same count datatable and provider  date:21feb 2023//
         //dd(\DB::getQueryLog());
         
-        $test = UserDetails::select('software_using')->where('software_using','!=','NULL')->get()->count();
+        //$test = UserDetails::select('software_using')->where('software_using','!=','NULL')->get()->count();
+
+        // new query by PK for same count datatable and provider  date:21feb 2023//
+        $test = UserDetails::whereNotNull('range_id')->where('software_using','!=','NULL')->get()->count();
+        // new query by PK for same count datatable and provider  date:21feb 2023//
 
         } elseif($loginUser->user_type == 1){
             $query = UserDetails::whereBankId($loginUser->id)->whereNotNull('range_id');
@@ -106,7 +117,9 @@ class AccountController extends Controller
         }
         $exists = $query->count();
             if ($exists > 0) {
+                //\DB::enableQueryLog();
                 $list = $query->sortable()->paginate(AdminHelper::ADMIN_LIST_LIMIT);
+                //dd(\DB::getQueryLog());
                 $data['list'] = $list;
             } else {
                 $data['list'] = array();
