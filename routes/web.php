@@ -36,6 +36,10 @@ Route::group(['namespace' => 'admin', 'prefix' => 'securepanel', 'as' => 'admin.
         
         Route::any('/logout', 'AuthController@logout')->name('logout');
 
+        // export user date:22/02/2023
+        Route::get('/export-user', 'AccountController@exportUser')->name('export-user');
+        //Route::get('/export-user-custom', 'AccountController@exportUserCustom')->name('export-user-custom');
+        // export user date:22/02/2023
        
         Route::group(['prefix' => 'cms', 'as' => 'CMS.'], function () {
 			Route::get('/', 'CmsController@list')->name('list');

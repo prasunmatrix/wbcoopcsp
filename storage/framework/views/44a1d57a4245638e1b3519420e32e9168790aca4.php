@@ -1,15 +1,13 @@
-@extends('admin.layouts.app', ['title' => $panel_title])
-
-@section('content')
-@php
+<?php $__env->startSection('content'); ?>
+<?php
 $arr = ['0' => 'No', '1'=>'Yes'	]
 
-@endphp
+?>
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-  <h1>Dashboard of <strong> {{ Helper::getAppName() }} </strong></h1>
-  <a href="{{ route('admin.export-user') }}"  class="btn btn-success btn-xs" title="Export"><i class="fas fa-file-export"></i>Export</a>
+  <h1>Dashboard of <strong> <?php echo e(Helper::getAppName()); ?> </strong></h1>
+  <a href="<?php echo e(route('admin.export-user')); ?>"  class="btn btn-success btn-xs" title="Export"><i class="fas fa-file-export"></i>Export</a>
   <ol class="breadcrumb">
       <li><a><i class="fa fa-dashboard"></i> Home</a></li>
       <li class="active">Dashboard</li>
@@ -30,10 +28,10 @@ $arr = ['0' => 'No', '1'=>'Yes'	]
                                             Name of PACS
                                         </th>
                                         <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1">
-                                            @sortablelink('userDistrict.district_name', 'District')
+                                            <?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('userDistrict.district_name', 'District'));?>
                                         </th>
                                         <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" >
-                                            @sortablelink('userBlock.block_name', 'Block')
+                                            <?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('userBlock.block_name', 'Block'));?>
                                         </th>
                                         <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">
                                             Type of Society
@@ -48,110 +46,101 @@ $arr = ['0' => 'No', '1'=>'Yes'	]
                                             Service Provider of PACS
                                         </th>
                                         
-                                        {{-- <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">
-                                            Is Deleted
-                                        </th> --}}
+                                        
                                         
                                     </tr>
 
                                     </thead>
-                                    @if(isset($list))
-                                    @if(count($list)>0)
-                                    @foreach ($list as $key => $row)
+                                    <?php if(isset($list)): ?>
+                                    <?php if(count($list)>0): ?>
+                                    <?php $__currentLoopData = $list; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
                                     <tbody>
                                         <tr role="row" class="odd">
                                             <td class="sorting_1">
-                                                {{$row->userDetail->full_name}}
+                                                <?php echo e($row->userDetail->full_name); ?>
+
                                             </td>   
                                             
                                             <td class="sorting_1">
-                                                    @if(isset($row->district_id))
-                                                        @if($row->district_id != NULL || $row->district_id !='')
-                                                            {{ $row->userDistrict->district_name }}
-                                                        @else
+                                                    <?php if(isset($row->district_id)): ?>
+                                                        <?php if($row->district_id != NULL || $row->district_id !=''): ?>
+                                                            <?php echo e($row->userDistrict->district_name); ?>
+
+                                                        <?php else: ?>
                                                             No records found
-                                                        @endif
-                                                    @else
+                                                        <?php endif; ?>
+                                                    <?php else: ?>
                                                         No records found
-                                                @endif 
+                                                <?php endif; ?> 
                                             </td>
                                             <td class="sorting_1">
-                                                    @if(isset($row->block_id))
-                                                        @if($row->block_id != NULL || $row->userProfile->block_id !='')
-                                                            {{ $row->userBlock->block_name }}
-                                                        @else
+                                                    <?php if(isset($row->block_id)): ?>
+                                                        <?php if($row->block_id != NULL || $row->userProfile->block_id !=''): ?>
+                                                            <?php echo e($row->userBlock->block_name); ?>
+
+                                                        <?php else: ?>
                                                             No records found
-                                                        @endif
-                                                    @else
+                                                        <?php endif; ?>
+                                                    <?php else: ?>
                                                         No records found
-                                                @endif 
+                                                <?php endif; ?> 
                                             </td>
                                             <td class="sorting_1">
-                                                    @if(isset($row->socity_type))
-                                                        @if($row->socity_type != NULL || $row->socity_type !='')
-                                                            {{ $row->userSocietie->name }}
-                                                        @else
+                                                    <?php if(isset($row->socity_type)): ?>
+                                                        <?php if($row->socity_type != NULL || $row->socity_type !=''): ?>
+                                                            <?php echo e($row->userSocietie->name); ?>
+
+                                                        <?php else: ?>
                                                             No records found
-                                                        @endif
-                                                    @else
+                                                        <?php endif; ?>
+                                                    <?php else: ?>
                                                         No records found
-                                                @endif 
+                                                <?php endif; ?> 
                                             </td>
                                             <td class="sorting_1">
-                                                    @if(isset($row->unique_id))
-                                                        @if($row->unique_id != NULL || $row->unique_id !='')
-                                                            {{ $row->unique_id }}
-                                                        @else
+                                                    <?php if(isset($row->unique_id)): ?>
+                                                        <?php if($row->unique_id != NULL || $row->unique_id !=''): ?>
+                                                            <?php echo e($row->unique_id); ?>
+
+                                                        <?php else: ?>
                                                             No records found
-                                                        @endif
-                                                    @else
+                                                        <?php endif; ?>
+                                                    <?php else: ?>
                                                         No records found
-                                                @endif 
+                                                <?php endif; ?> 
                                             </td>
                                             <td class="sorting_1">
-                                                    @if(isset($row->pacs_using_software))
-                                                        @if($row->pacs_using_software != NULL || $row->pacs_using_software !='')
-                                                            {{ $arr[$row->pacs_using_software] }}
-                                                        @else
+                                                    <?php if(isset($row->pacs_using_software)): ?>
+                                                        <?php if($row->pacs_using_software != NULL || $row->pacs_using_software !=''): ?>
+                                                            <?php echo e($arr[$row->pacs_using_software]); ?>
+
+                                                        <?php else: ?>
                                                             No records found
-                                                        @endif
-                                                    @else
+                                                        <?php endif; ?>
+                                                    <?php else: ?>
                                                         No records found
-                                                @endif 
+                                                <?php endif; ?> 
                                             </td>
 
                                             <td class="sorting_1">
-                                                    @if(isset($row->software_using))
-                                                        @if($row->software_using != NULL || $row->software_using !='')
-                                                            {{ $row->userSoftware->full_name }}
-                                                        @else
+                                                    <?php if(isset($row->software_using)): ?>
+                                                        <?php if($row->software_using != NULL || $row->software_using !=''): ?>
+                                                            <?php echo e($row->userSoftware->full_name); ?>
+
+                                                        <?php else: ?>
                                                             No records found
-                                                        @endif
-                                                    @else
+                                                        <?php endif; ?>
+                                                    <?php else: ?>
                                                         No records found
-                                                @endif 
+                                                <?php endif; ?> 
                                             </td>
                                            
                                            
                                            
                                             
                                            
-                                            {{-- <td>
-                                                @if(isset($row->deleted_at))  
-                                                    @if($row->deleted_at!=null || $row->deleted_at!='')
-                                                        @if($row->deleted_at == '0')
-                                                            <span style="color:green">@lang('admin.no')</span>
-                                                        @else
-                                                            <span style="color:red">@lang('admin.yes')</span>
-                                                        @endif  
-                                                    @else
-                                                        No records found
-                                                    @endif
-                                                @else
-                                                    No records found
-                                                @endif  
-                                            </td> --}}
+                                            
                                             
                                             
                                             
@@ -159,36 +148,37 @@ $arr = ['0' => 'No', '1'=>'Yes'	]
                                         
                                        
                                     </tbody>
-                                    @endforeach
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 
-                            @else
+                            <?php else: ?>
                             <tr><td colspan="8" style="text-align: center;">No Records Found</td></tr>   
-                            @endif
+                            <?php endif; ?>
                             </table>
-                        @else
+                        <?php else: ?>
                             <p>No User Input found</p>        
-                        @endif            
+                        <?php endif; ?>            
                     </div>
-                @if(count($list) > 0)
+                <?php if(count($list) > 0): ?>
                 <div class="box-footer">
                     <div class="col-sm-12 col-md-5">
                         <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
                             <strong>Show Records:</strong>
-                            <strong style="color:green">{{ $list->firstItem() }}</strong>
+                            <strong style="color:green"><?php echo e($list->firstItem()); ?></strong>
                                 To
-                            <strong style="color:green">{{ $list->lastItem() }}</strong>
+                            <strong style="color:green"><?php echo e($list->lastItem()); ?></strong>
                                 Total
-                            <strong style="color:green">{{$list->total()}}</strong>
+                            <strong style="color:green"><?php echo e($list->total()); ?></strong>
                                 Entries
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-7">
                         <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
-                            {{$list->appends(request()->input())->links("pagination::bootstrap-4") }}
+                            <?php echo e($list->appends(request()->input())->links("pagination::bootstrap-4")); ?>
+
                         </div>
                     </div>
                 </div>
-                @endif
+                <?php endif; ?>
             </div>
             <!-- /.box -->
         </div>
@@ -196,9 +186,9 @@ $arr = ['0' => 'No', '1'=>'Yes'	]
     </div>
 </section>
 <!-- /.content -->
-@if(count($list)>0)
+<?php if(count($list)>0): ?>
 <section class="content cus-listing">
-@if(\Auth::guard('admin')->user()->user_type != '4')                                              
+<?php if(\Auth::guard('admin')->user()->user_type != '4'): ?>                                              
   <div class="row">
   <div class="col-sm-12">
     <div class="col-sm-3"><strong>Service Provider</strong></div>
@@ -206,39 +196,43 @@ $arr = ['0' => 'No', '1'=>'Yes'	]
     </div>
     </div>
    
-    @foreach ($softwareDetails as $row)
+    <?php $__currentLoopData = $softwareDetails; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
     
     <div class="row">
     <div class="col-md-12">
         <div class="col-md-3">
-        {{$row->userSoftware->full_name}} 
+        <?php echo e($row->userSoftware->full_name); ?> 
         </div>
         <div class="col-md-9">
-         {{ $row->total }}
+         <?php echo e($row->total); ?>
+
         </div>
     </div>
     </div>
     
-    @endforeach
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     <div class="row">
     <div class="col-md-12">
         <div class="col-md-3">
             Total 
         </div>
         <div class="col-md-9">
-        {{ $test }}
+        <?php echo e($test); ?>
+
         </div>
     </div>
     </div>
    
-    @endif
+    <?php endif; ?>
     
   
   
 </section>
-@endif
+<?php endif; ?>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
 
+
+<?php echo $__env->make('admin.layouts.app', ['title' => $panel_title], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\matrixmedia\wbcoopcsp\resources\views/admin/account/dashboard.blade.php ENDPATH**/ ?>
