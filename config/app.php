@@ -180,7 +180,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
-        //Maatwebsite\Excel\ExcelServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
        
     ],
 
@@ -239,7 +239,7 @@ return [
         'ApiHelper' => App\Http\Helpers\ApiHelper::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'PushNotification' => Edujugon\PushNotification\Facades\PushNotification::class,
-        //'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         
     ],
 
