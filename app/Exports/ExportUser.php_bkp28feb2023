@@ -58,23 +58,14 @@ class ExportUser implements FromCollection, WithHeadings, WithMapping
       //       $pacs_using_software,
       //       $software_using
       //   ];
-      // }
-      if($user->userBlock!=NULL || $user->userBlock!='')
-      {
-        $block=$user->userBlock['block_name'];
-      }
-      else
-      {
-        $block=$user->block;
-      }
-      $arr = ['0' => 'No', '1'=>'Yes' ]; 
+      // } 
       return [
         $user->userDetail['full_name'],
         $user->userDistrict['district_name'],
-        $block,
+        $user->block,
         $user->userSocietie['name'],
         $user->unique_id,
-        $arr[$user->pacs_using_software],
+        $user->pacs_using_software,
         $user->userSoftware['full_name']
            ];
     }
