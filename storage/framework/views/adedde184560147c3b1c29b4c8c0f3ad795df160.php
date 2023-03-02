@@ -8,7 +8,7 @@ $arr = ['0' => 'No', '1'=>'Yes' ]
 <section class="content-header">
   <h1>Dashboard of <strong> <?php echo e(Helper::getAppName()); ?> </strong></h1>
   <?php if(Auth::guard('admin')->user()->user_type==0): ?>
-  
+  <a href="<?php echo e(route('admin.export-user')); ?>" class="btn btn-success btn-xs" title="Export"><i class="fas fa-file-export"></i>Export</a>
   <?php endif; ?>
   <ol class="breadcrumb">
     <li><a><i class="fa fa-dashboard"></i> Home</a></li>
