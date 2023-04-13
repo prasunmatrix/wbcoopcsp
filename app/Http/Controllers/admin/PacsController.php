@@ -54,7 +54,9 @@ class PacsController extends Controller
             }
             $exists = $query->count();
             if ($exists > 0) {
+               //\DB::enableQueryLog();
                 $list = $query->orderBy($data['order_by'], $data['order'])->paginate(AdminHelper::ADMIN_LIST_LIMIT);
+                //dd(\DB::getQueryLog());
                 $data['list'] = $list;
             } else {
                 $data['list'] = array();
