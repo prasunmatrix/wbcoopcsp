@@ -51,4 +51,4 @@
 </nav> 
 
 
-<?php /**PATH /var/www/html/prasun/wbcoopcsp/resources/views/admin/elements/navbar.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\xampp\htdocs\matrixmedia\wbcoopcsp\resources\views/admin/elements/navbar.blade.php ENDPATH**/ ?>

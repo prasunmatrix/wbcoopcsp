@@ -125,4 +125,4 @@
     opacity:2;         //This grays it out to look disabled
 }
 </style>
-<!-- /.sidebar --><?php /**PATH /var/www/html/prasun/wbcoopcsp/resources/views/admin/elements/sidebar.blade.php ENDPATH**/ ?>
+<!-- /.sidebar --><?php /**PATH C:\xampp\htdocs\matrixmedia\wbcoopcsp\resources\views/admin/elements/sidebar.blade.php ENDPATH**/ ?>

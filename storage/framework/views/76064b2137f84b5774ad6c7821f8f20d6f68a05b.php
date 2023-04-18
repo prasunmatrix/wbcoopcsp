@@ -49,4 +49,4 @@
         });
     </script>
     <?php $__env->stopPush(); ?>
-<?php /**PATH /var/www/html/prasun/wbcoopcsp/resources/views/admin/elements/footer.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\xampp\htdocs\matrixmedia\wbcoopcsp\resources\views/admin/elements/footer.blade.php ENDPATH**/ ?>
