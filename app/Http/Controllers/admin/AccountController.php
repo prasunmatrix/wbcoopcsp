@@ -120,6 +120,7 @@ class AccountController extends Controller
     $exists = $query->count();
     if ($exists > 0) {
       //\DB::enableQueryLog();
+      //$query=$query->with('userDetail')->with('userBank')->get();
       $list = $query->sortable()->paginate(AdminHelper::ADMIN_LIST_LIMIT);
       //dd(\DB::getQueryLog());
       $data['list'] = $list;
