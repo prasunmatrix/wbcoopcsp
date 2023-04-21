@@ -1,0 +1,8 @@
+Date: 21/04/2023
+
+1. ALTER TABLE `csp_user_details` ADD `whether_the_pacs_received_csp_fund_from_ncdc` ENUM('1','0') NULL DEFAULT NULL AFTER `pacs_uploaded_format`;
+
+2. ALTER TABLE `csp_user_details` CHANGE `whether_the_pacs_received_csp_fund_from_ncdc` `whether_the_pacs_received_csp_fund_from_ncdc` ENUM('1','0') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '0 => No, 1=>Yes';
+
+3. ALTER TABLE `csp_user_details` ADD `whether_the_csp_infrastructure_is_ready` ENUM('1','0') NULL DEFAULT NULL COMMENT '0 => No, 1=>Yes' AFTER `whether_the_pacs_received_csp_fund_from_ncdc`, ADD `whether_csp_is_live` ENUM('1','0') NULL DEFAULT NULL COMMENT '0 => No, 1=>Yes' AFTER `whether_the_csp_infrastructure_is_ready`;
+
