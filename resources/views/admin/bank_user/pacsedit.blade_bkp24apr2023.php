@@ -8,7 +8,7 @@
   </h1>
   <ol class="breadcrumb">
     <li><a href="{{route('admin.dashboard')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="{{route('admin.bank.pacslist')}}"><i class="fa fa-home" aria-hidden="true"></i>Pacs List</a></li>
+    <li><a href="{{route('admin.range.pacs')}}"><i class="fa fa-home" aria-hidden="true"></i>Pacs List</a></li>
     <li class="active">{{ $data['page_title'] }}</li>
   </ol>
 </section>
@@ -253,29 +253,6 @@
             <img src="{{ $imgPath }}" alt="" height="50px">
           </div>
 
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="name">Whether the PACS received CSP Fund from NCDC</label><br />
-            <input type="radio" name="whether_the_PACS_received_CSP_fund_from_NCDC" value="1" @if($details->userProfile['whether_the_pacs_received_csp_fund_from_ncdc']==1) checked  @endif>&nbsp;Yes
-            <input type="radio" name="whether_the_PACS_received_CSP_fund_from_NCDC" value="0" @if($details->userProfile['whether_the_pacs_received_csp_fund_from_ncdc']==0) checked  @endif>&nbsp;No
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="name">Whether the CSP infrastructure is ready</label><br />
-            <input type="radio" name="whether_the_CSP_infrastructure_is_ready" value="1" @if($details->userProfile['whether_the_csp_infrastructure_is_ready']==1) checked  @endif>&nbsp;Yes
-            <input type="radio" name="whether_the_CSP_infrastructure_is_ready" value="0" @if($details->userProfile['whether_the_csp_infrastructure_is_ready']==0) checked  @endif>&nbsp;No
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="name">Whether CSP is live</label><br />
-            <input type="radio" name="whether_CSP_is_live" value="1" @if($details->userProfile['whether_csp_is_live']==1) checked  @endif>&nbsp;Yes
-            <input type="radio" name="whether_CSP_is_live" value="0" @if($details->userProfile['whether_csp_is_live']==0) checked  @endif>&nbsp;No
-          </div>
         </div>
       </div>
     </div>

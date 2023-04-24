@@ -29,12 +29,19 @@ class ExportUser implements FromCollection, WithHeadings, WithMapping
     {
       return [
         'Name of PACS',
+        'Email',
+        'Phone No',
+        'Bank',
+        'Zone',
         'District',
         'Block',
         'Type of Society',
         'Unique Id of PACS',
         'Confirmation Done By PACS',
-        'Service Provider of PACS'
+        'Service Provider of PACS',
+        'Whether the PACS  received CSP Fund  from NCDC',
+        'Whether the CSP infrastructure is ready',
+        'Whether CSP is live'
       ];
     }
     public function map($user): array
@@ -67,15 +74,62 @@ class ExportUser implements FromCollection, WithHeadings, WithMapping
       {
         $block=$user->block;
       }
-      $arr = ['0' => 'No', '1'=>'Yes' ]; 
+      $arr = ['0' => 'No', '1'=>'Yes' ];
+      if($user->whether_the_pacs_received_csp_fund_from_ncdc!=NULL || $user->whether_the_pacs_received_csp_fund_from_ncdc!='')
+      {
+        $whether_the_pacs_received_csp_fund_from_ncdc=$arr[$user->whether_the_pacs_received_csp_fund_from_ncdc];
+      }
+      else
+      {
+        $whether_the_pacs_received_csp_fund_from_ncdc='No';
+      }
+      if($user->whether_the_csp_infrastructure_is_ready!=NULL || $user->whether_the_csp_infrastructure_is_ready!='')
+      {
+        $whether_the_csp_infrastructure_is_ready=$arr[$user->whether_the_csp_infrastructure_is_ready];
+      }
+      else
+      {
+        $whether_the_csp_infrastructure_is_ready='No';
+      }
+      if($user->whether_csp_is_live!=NULL || $user->whether_csp_is_live!='')
+      {
+        $whether_csp_is_live=$arr[$user->whether_csp_is_live];
+      }
+      else
+      {
+        $whether_csp_is_live='No';
+      }
+      if($user->bank_id != NULL || $user->bank_id !='')
+      {
+        $bank=$user->userBank->full_name;
+      }
+      else
+      {
+        $bank="";
+      }
+      if($user->zone_id != NULL || $user->zone_id !='')
+      {
+        $zone=$user->userZone->full_name;
+      }
+      else
+      {
+        $zone="";
+      }   
       return [
         $user->userDetail['full_name'],
+        $user->userDetail['email'],
+        $user->userDetail['phone_no'],
+        $bank,
+        $zone,
         $user->userDistrict['district_name'],
         $block,
         $user->userSocietie['name'],
         $user->unique_id,
         $arr[$user->pacs_using_software],
-        $user->userSoftware['full_name']
+        $user->userSoftware['full_name'],
+        $whether_the_pacs_received_csp_fund_from_ncdc,
+        $whether_the_csp_infrastructure_is_ready,
+        $whether_csp_is_live
            ];
     }
     

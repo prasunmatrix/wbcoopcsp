@@ -240,13 +240,36 @@
           </div>
 
         </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="name">Whether the PACS received CSP Fund from NCDC</label><br />
+            {{ Form::radio('whether_the_PACS_received_CSP_fund_from_NCDC', '1' , false) }}&nbsp;Yes
+            {{ Form::radio('whether_the_PACS_received_CSP_fund_from_NCDC', '0' , false) }}&nbsp;No
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="name">Whether the CSP infrastructure is ready</label><br />
+            {{ Form::radio('whether_the_CSP_infrastructure_is_ready', '1' , false) }}&nbsp;Yes
+            {{ Form::radio('whether_the_CSP_infrastructure_is_ready', '0' , false) }}&nbsp;No
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="name">Whether CSP is live</label><br />
+            {{ Form::radio('whether_CSP_is_live', '1' , false) }}&nbsp;Yes
+            {{ Form::radio('whether_CSP_is_live', '0' , false) }}&nbsp;No
+          </div>
+        </div>
       </div>
     </div>
   </div>
   <div class="box-footer">
     <div class="col-md-6">
       <button type="submit" class="btn btn-primary">Submit</button>
-      <a href="{{ route('admin.range.pacs') }}" class="btn btn-block btn-default btn_width_reset">Cancel</a>
+      <a href="{{ route('admin.bank.pacslist') }}" class="btn btn-block btn-default btn_width_reset">Cancel</a>
     </div>
   </div>
   {!! Form::close() !!}

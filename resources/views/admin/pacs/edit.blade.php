@@ -155,8 +155,8 @@
         </div> --}}
         <div class="col-md-6">
           <div class="form-group">
-            <label for="title">Block<span class="red_star"></span></label>
-            <select name="block" id="block" class="form-control" value="{{old('block')}}">
+            <label for="title">Block<span class="red_star">*</span></label>
+            <select name="block" id="block" class="form-control" value="{{old('block')}}" required>
               <option value="">-Select-</option>
               @if (count($blockList))
               @foreach ($blockList as $state)
@@ -168,8 +168,8 @@
         </div>
         <div class="col-md-6">
           <div class="form-group">
-            <label for="title">Service Provider</label>
-            <select name="software_using" id="software_using" class="form-control" value="{{old('software_using')}}">
+            <label for="title">Service Provider<span class="red_star">*</span></label>
+            <select name="software_using" id="software_using" class="form-control" value="{{old('software_using')}}" required>
               <option value="">-Select-</option>
               @if (count($softwareList))
               @foreach ($softwareList as $state)
@@ -274,7 +274,7 @@
           <div class="form-group">
             <label for="name">Whether CSP is live</label><br />
             <input type="radio" name="whether_CSP_is_live" value="1" @if($details->userProfile['whether_csp_is_live']==1) checked  @endif>&nbsp;Yes
-            <input type="radio" name="whether_CSP_is_live" value="0" @if($details->userProfile['whether_csp_is_live']==0 || $details->userProfile['whether_csp_is_live']!="null") checked  @endif>&nbsp;No
+            <input type="radio" name="whether_CSP_is_live" value="0" @if($details->userProfile['whether_csp_is_live']==0) checked  @endif>&nbsp;No
           </div>
         </div>
       </div>

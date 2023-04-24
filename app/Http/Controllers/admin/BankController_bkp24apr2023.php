@@ -449,7 +449,6 @@ class BankController extends Controller
           // 'range_id.required'         => 'Please select Range',
           'district_id.required'      => 'Please select District',
           // 'block_id.required'         => 'Please select Block',
-          'block.required'            => 'Please select Block',
           'software_using.required'   => 'Please select Software',
           'address.required'          => 'Please enter address',
           'address.min'               => 'Address should be at least 2 characters',
@@ -500,13 +499,6 @@ class BankController extends Controller
             $newPacsDetails->block                          = isset($request->block) ? $request->block : NULL;
             $newPacsDetails->software_using                 = isset($request->software_using) ? $request->software_using : NULL;
             $newPacsDetails->unique_id                      = isset($request->unique_id) ? $request->unique_id : NULL;
-
-            // new field add date:24/04/2023 by PK
-            $newPacsDetails->whether_the_pacs_received_csp_fund_from_ncdc = isset($request->whether_the_PACS_received_CSP_fund_from_NCDC) ? $request->whether_the_PACS_received_CSP_fund_from_NCDC : NULL;
-            $newPacsDetails->whether_the_csp_infrastructure_is_ready = isset($request->whether_the_CSP_infrastructure_is_ready) ? $request->whether_the_CSP_infrastructure_is_ready : NULL;
-            $newPacsDetails->whether_csp_is_live = isset($request->whether_CSP_is_live) ? $request->whether_CSP_is_live : NULL;
-            // new field add date:24/04/2023 by PK
-
             $savePacsDetails                                = $newPacsDetails->save();
 
             // Send Mail to Bank User with Username, Password
@@ -647,7 +639,6 @@ class BankController extends Controller
           'range_id.required'         => 'Please select Range',
           'district_id.required'      => 'Please select District',
           // 'block_id.required'         => 'Please select Block',
-          'block.required'            => 'Please select Block',
           'software_using.required'   => 'Please select Software',
           'address.required'          => 'Please enter address',
           'address.min'               => 'Address should be at least 2 characters',
@@ -692,13 +683,6 @@ class BankController extends Controller
             $newPacsDetails->block                          = isset($request->block) ? $request->block : NULL;
             $newPacsDetails->software_using                 = isset($request->software_using) ? $request->software_using : NULL;
             $newPacsDetails->unique_id                      = isset($request->unique_id) ? $request->unique_id : NULL;
-
-            // new field edit date:24/04/2023 by PK
-            $newPacsDetails->whether_the_pacs_received_csp_fund_from_ncdc = isset($request->whether_the_PACS_received_CSP_fund_from_NCDC) ? $request->whether_the_PACS_received_CSP_fund_from_NCDC : NULL;
-            $newPacsDetails->whether_the_csp_infrastructure_is_ready = isset($request->whether_the_CSP_infrastructure_is_ready) ? $request->whether_the_CSP_infrastructure_is_ready : NULL;
-            $newPacsDetails->whether_csp_is_live = isset($request->whether_CSP_is_live) ? $request->whether_CSP_is_live : NULL;
-            // new field edit date:24/04/2023 by PK
-
             $savePacsDetails                                = $newPacsDetails->save();
 
             $request->session()->flash('alert-success', 'Pacs has been updated successfully');

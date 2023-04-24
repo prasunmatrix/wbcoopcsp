@@ -153,8 +153,8 @@
         </div>--}}
         <div class="col-md-6">
           <div class="form-group">
-            <label for="title">Block<span class="red_star"></span></label>
-            <select name="block" id="block" class="form-control" value="{{old('block')}}">
+            <label for="title">Block<span class="red_star">*</span></label>
+            <select name="block" id="block" class="form-control" value="{{old('block')}}" required>
               <option value="">-Select-</option>
               @if (count($blockList))
               @foreach ($blockList as $state)
@@ -166,8 +166,8 @@
         </div>
         <div class="col-md-6">
           <div class="form-group">
-            <label for="title">Service Provider</label>
-            <select name="software_using" id="software_using" class="form-control" value="{{old('software_using')}}">
+            <label for="title">Service Provider<span class="red_star">*</span></label>
+            <select name="software_using" id="software_using" class="form-control" value="{{old('software_using')}}" required>
               <option value="">-Select-</option>
               @if (count($softwareList))
               @foreach ($softwareList as $state)
