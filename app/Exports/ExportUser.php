@@ -33,6 +33,7 @@ class ExportUser implements FromCollection, WithHeadings, WithMapping
         'Phone No',
         'Bank',
         'Zone',
+        'Range',
         'District',
         'Block',
         'Type of Society',
@@ -114,6 +115,14 @@ class ExportUser implements FromCollection, WithHeadings, WithMapping
       else
       {
         $zone="";
+      }
+      if($user->range_id != NULL || $user->range_id !='')
+      {
+        $range=$user->userRangeOne->full_name;
+      }
+      else
+      {
+        $range="";
       }   
       return [
         $user->userDetail['full_name'],
@@ -121,6 +130,7 @@ class ExportUser implements FromCollection, WithHeadings, WithMapping
         $user->userDetail['phone_no'],
         $bank,
         $zone,
+        $range,
         $user->userDistrict['district_name'],
         $block,
         $user->userSocietie['name'],
