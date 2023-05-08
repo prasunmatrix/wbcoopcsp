@@ -372,8 +372,7 @@ class BankController extends Controller
           $q->orWhere('users.email', 'LIKE', '%' . $key . '%');
           $q->orWhere('users.phone_no', 'LIKE', '%' . $key . '%');
         })
-          ->join('users', 'user_details.user_id', '=', 'users.id')
-          ->select('user_details.*','users.full_name','users.email','users.phone_no'); //change for ID issue date: 08 May 2023
+          ->join('users', 'user_details.user_id', '=', 'users.id');
 
         //dd(\DB::getQueryLog());
       }
