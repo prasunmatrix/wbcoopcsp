@@ -8,7 +8,7 @@
   </h1>
   <ol class="breadcrumb">
     <li><a href="{{route('admin.dashboard')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="{{route('admin.pacs.list')}}"><i class="fa fa-home" aria-hidden="true"></i>Pacs List</a></li>
+    <li><a href="{{route('admin.bank.pacslist')}}"><i class="fa fa-home" aria-hidden="true"></i>Pacs List</a></li>
     <li class="active">{{ $data['page_title'] }}</li>
   </ol>
 </section>
@@ -23,7 +23,7 @@
         {{ Form::open(array(
 		                            'method'=> 'POST',
 		                            'class' => '',
-                                    'route' => ['admin.pacs.editSubmit', $details["id"]],
+                                    'route' => ['admin.bank.pacseditSubmit', $data["id"]],
                                     'title'  => 'editCityForm',
                                     'id'    => 'editCityForm',
                                     'files' => true,
@@ -116,7 +116,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="title">Range<span class="red_star">*</span></label>
-                <select name="range_id" id="range_id" class="form-control" value="{{old('range_id')}}" required>
+                <select name="range_id" id="range_id" class="form-control" value="{{old('range_id')}}">
                   <option value="">-Select-</option>
                   @if (count($rangeList))
                   @foreach ($rangeList as $state)
@@ -129,7 +129,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="title">District<span class="red_star">*</span></label>
-                <select name="district_id" id="district_id" class="form-control" value="{{old('district_id')}}" required onchange="getPacsBlock(this.value)">
+                <select name="district_id" id="district_id" class="form-control" value="{{old('district_id')}}" required>
                   <option value="">-Select-</option>
                   @if (count($districtList))
                   @foreach ($districtList as $state)
@@ -152,7 +152,7 @@
                                                                 'class' => 'form-control'
                                                                  )) }}
           </div>
-        </div> --}}
+        </div>--}}
         <div class="col-md-6">
           <div class="form-group">
             <label for="title">Block<span class="red_star">*</span></label>
@@ -257,8 +257,8 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="name">Whether the PACS received CSP Fund from NCDC</label><br />
-            <input type="radio" name="whether_the_PACS_received_CSP_fund_from_NCDC" value="1" @if($details->userProfile['whether_the_pacs_received_csp_fund_from_ncdc']==1) checked @endif>&nbsp;Yes
-            <input type="radio" name="whether_the_PACS_received_CSP_fund_from_NCDC" value="0" @if($details->userProfile['whether_the_pacs_received_csp_fund_from_ncdc']==0) checked @endif>&nbsp;No
+            <input type="radio" name="whether_the_PACS_received_CSP_fund_from_NCDC" value="1" @if($details->userProfile['whether_the_pacs_received_csp_fund_from_ncdc']==1) checked  @endif>&nbsp;Yes
+            <input type="radio" name="whether_the_PACS_received_CSP_fund_from_NCDC" value="0" @if($details->userProfile['whether_the_pacs_received_csp_fund_from_ncdc']==0) checked  @endif>&nbsp;No
           </div>
         </div>
       </div>
@@ -266,15 +266,15 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="name">Whether the CSP infrastructure is ready</label><br />
-            <input type="radio" name="whether_the_CSP_infrastructure_is_ready" value="1" @if($details->userProfile['whether_the_csp_infrastructure_is_ready']==1) checked @endif>&nbsp;Yes
-            <input type="radio" name="whether_the_CSP_infrastructure_is_ready" value="0" @if($details->userProfile['whether_the_csp_infrastructure_is_ready']==0) checked @endif>&nbsp;No
+            <input type="radio" name="whether_the_CSP_infrastructure_is_ready" value="1" @if($details->userProfile['whether_the_csp_infrastructure_is_ready']==1) checked  @endif>&nbsp;Yes
+            <input type="radio" name="whether_the_CSP_infrastructure_is_ready" value="0" @if($details->userProfile['whether_the_csp_infrastructure_is_ready']==0) checked  @endif>&nbsp;No
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label for="name">Whether CSP is live</label><br />
-            <input type="radio" name="whether_CSP_is_live" value="1" @if($details->userProfile['whether_csp_is_live']==1) checked @endif>&nbsp;Yes
-            <input type="radio" name="whether_CSP_is_live" value="0" @if($details->userProfile['whether_csp_is_live']==0) checked @endif>&nbsp;No
+            <input type="radio" name="whether_CSP_is_live" value="1" @if($details->userProfile['whether_csp_is_live']==1) checked  @endif>&nbsp;Yes
+            <input type="radio" name="whether_CSP_is_live" value="0" @if($details->userProfile['whether_csp_is_live']==0) checked  @endif>&nbsp;No
           </div>
         </div>
       </div>
@@ -284,7 +284,7 @@
   <div class="box-footer">
     <div class="col-md-6">
       <button type="submit" class="btn btn-primary" title="Submit">Update</button>
-      <a href="{{ route('admin.pacs.list').'?page='.$data['pageNo'] }}" title="Cancel" class="btn btn-block btn-default btn_width_reset">Cancel</a>
+      <a href="{{ route('admin.bank.pacslist').'?page='.$data['pageNo'] }}" title="Cancel" class="btn btn-block btn-default btn_width_reset">Cancel</a>
     </div>
   </div>
   {!! Form::close() !!}
@@ -300,7 +300,7 @@
 
     $.ajax({
 
-      url: "{{route('admin.pacs.getPacsZone')}}",
+      url: "{{route('admin.range.getRangeZone')}}",
       type: 'get',
       dataType: "json",
       data: {
@@ -328,7 +328,7 @@
 
     $.ajax({
 
-      url: "{{route('admin.pacs.getPacsRange')}}",
+      url: "{{route('admin.range.getRangeRange')}}",
       type: 'get',
       dataType: "json",
       data: {
@@ -354,10 +354,9 @@
 
   function getPacsBlock(district_id) {
 
-
     $.ajax({
 
-      url: "{{route('admin.pacs.getPacsBlock')}}",
+      url: "{{route('admin.range.getRangeBlock')}}",
       type: 'get',
       dataType: "json",
       data: {
@@ -376,41 +375,8 @@
         $.each(zonedata, function(index, block_id) {
           zone_list += '<option value="' + block_id.id + '">' + block_id.block_name + '</option>';
         });
-        //$("#block_id").html(zone_list);
-        $("#block").html(zone_list);
+        $("#block_id").html(zone_list);
       }
     });
   }
-
-  // window.onload = function() {
-  //   var district_id = '<?php //echo $details->userProfile['district_id']; ?>';
-
-  //   if (district_id != "") {
-  //     $.ajax({
-
-  //       url: "{{route('admin.pacs.getPacsBlock')}}",
-  //       type: 'get',
-  //       dataType: "json",
-  //       data: {
-  //         district_id: district_id,
-  //         _token: "{{ csrf_token() }}"
-  //       }
-  //       // data:{bank_id:bank_id}
-  //     }).done(function(response) {
-
-  //       console.log(response.status);
-  //       if (response.status) {
-  //         console.log(response.allBlock);
-  //         var stringified = JSON.stringify(response.allBlock);
-  //         var zonedata = JSON.parse(stringified);
-  //         var zone_list = '<option value=""> Select Block</option>';
-  //         $.each(zonedata, function(index, block_id) {
-  //           zone_list += '<option value="' + block_id.id + '">' + block_id.block_name + '</option>';
-  //         });
-  //         //$("#block_id").html(zone_list);
-  //         $("#block").html(zone_list);
-  //       }
-  //     });
-  //   }
-  // };
 </script>

@@ -241,8 +241,7 @@ class PacsController extends Controller
       $districtList = District::select('id', 'district_name')->where('status', '1')->orderBy('district_name', 'asc')->get();
       $data['districtList'] = $districtList;
       //block list open by pk date: 12/10/2022
-      //$blockList = Block::select('id', 'block_name')->where('status', '1')->orderBy('block_name', 'asc')->get();
-      $blockList = Block::select('id', 'block_name')->where('district_id',$pacsDetails->userProfile['district_id'])->where('status', '1')->orderBy('block_name', 'asc')->get();
+      $blockList = Block::select('id', 'block_name')->where('status', '1')->orderBy('block_name', 'asc')->get();
       $data['blockList'] = $blockList;
       //block list open by pk date: 12/10/2022
       $softwareList = Software::select('id', 'full_name')->where('status', '1')->orderBy('full_name', 'asc')->get();

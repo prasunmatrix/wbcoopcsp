@@ -128,7 +128,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="title">District<span class="red_star">*</span></label>
-                <select name="district_id" id="district_id" class="form-control" value="{{old('district_id')}}" required>
+                <select name="district_id" id="district_id" class="form-control" value="{{old('district_id')}}" required onchange="getPacsBlock(this.value)">
                   <option value="">-Select-</option>
                   @if (count($districtList))
                   @foreach ($districtList as $state)
@@ -359,7 +359,8 @@
         $.each(zonedata, function(index, block_id) {
           zone_list += '<option value="' + block_id.id + '">' + block_id.block_name + '</option>';
         });
-        $("#block_id").html(zone_list);
+        //$("#block_id").html(zone_list);
+        $("#block").html(zone_list);
       }
     });
   }

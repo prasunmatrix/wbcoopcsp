@@ -612,7 +612,8 @@ class BankController extends Controller
       // dd($rangeList);
       $districtList = District::select('id', 'district_name')->where('status', '1')->orderBy('district_name', 'asc')->get();
       $data['districtList'] = $districtList;
-      $blockList = Block::select('id','block_name')->where('status', '1')->orderBy('block_name', 'asc')->get();
+      //$blockList = Block::select('id','block_name')->where('status', '1')->orderBy('block_name', 'asc')->get();
+      $blockList = Block::select('id','block_name')->where('status', '1')->where('district_id',$pacsDetails->userProfile['district_id'])->orderBy('block_name', 'asc')->get();
       //dd($blockList);
       $data['blockList'] = $blockList;
       $softwareList = Software::select('id', 'full_name')->where('status', '1')->orderBy('full_name', 'asc')->get();
