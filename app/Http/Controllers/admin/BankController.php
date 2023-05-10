@@ -206,7 +206,7 @@ class BankController extends Controller
           return redirect()->route('admin.bank.list');
         }
         $validationCondition = array(
-          'full_name'     => 'required|min:2|max:255|unique:' . (new User)->getTable() . ',full_name',
+          'full_name'     => 'required|min:2|max:255|unique:' . (new User)->getTable() . ',full_name,'.$bankDetails->id,
 
           'phone_no'      => 'required|regex:/^[0-9]\d*(\.\d+)?$/',
 
