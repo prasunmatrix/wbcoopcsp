@@ -16,6 +16,8 @@ use App\Block;
 use App\District;
 use App\Software;
 use App\Societie;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ExportUserBank;
 
 class BankController extends Controller
 {
@@ -720,5 +722,18 @@ class BankController extends Controller
     } catch (Exception $e) {
       return redirect()->route('admin.bank.pacslist')->with('error', $e->getMessage());
     }
+  }
+
+   /*****************************************************/
+  # BankController
+  # Function name : exportUserBank
+  # Author        : prasun
+  # Created Date  : 11-05-2023
+  # Purpose       : Export pacs user
+  # Params        : 
+  /*****************************************************/
+  public function exportUserBank() 
+  {
+    return Excel::download(new ExportUserBank, 'pacsusers.xlsx');
   }
 }

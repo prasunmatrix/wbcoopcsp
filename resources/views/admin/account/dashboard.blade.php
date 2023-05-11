@@ -12,6 +12,9 @@ $arr = ['0' => 'No', '1'=>'Yes' ]
   @if(Auth::guard('admin')->user()->user_type==0)
   <a href="{{ route('admin.export-user') }}" class="btn btn-success btn-xs" title="Export"><i class="fas fa-file-export"></i>Export</a>
   @endif
+  @if(Auth::guard('admin')->user()->user_type==1)
+  <a href="{{ route('admin.bank.export-user-bank') }}" class="btn btn-success btn-xs" title="Export"><i class="fas fa-file-export"></i>Export</a>
+  @endif
   <ol class="breadcrumb">
     <li><a><i class="fa fa-dashboard"></i> Home</a></li>
     <li class="active">Dashboard</li>

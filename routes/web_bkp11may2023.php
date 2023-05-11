@@ -133,9 +133,6 @@ Route::group(['namespace' => 'admin', 'prefix' => 'securepanel', 'as' => 'admin.
             Route::get('/pacsstatus/{id}', 'BankController@pacsstatus')->name('pacsstatus')->where('id','[0-9]+');
             Route::get('/pacsedit/{id}', 'BankController@pacsedit')->name('pacsedit')->where('id','[0-9]+');
             Route::post('/pacsedit-submit/{id}', 'BankController@pacsedit')->name('pacseditSubmit')->where('id','[0-9]+');
-
-            // Bank export route by PK date:12/05/2023
-            Route::get('/export-user-bank', 'BankController@exportUserBank')->name('export-user-bank');
         });
         
         Route::group(['prefix' => 'zone', 'as' => 'zone.'], function () {
