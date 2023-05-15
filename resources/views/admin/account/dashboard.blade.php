@@ -67,7 +67,7 @@ $arr = ['0' => 'No', '1'=>'Yes' ]
             <tbody>
               <tr role="row" class="odd">
                 <td class="sorting_1">
-                  {{$row->userDetail->full_name}}
+                  {{ isset($row->userDetail->full_name)?$row->userDetail->full_name:'' }}
                 </td>
 
                 <td class="sorting_1">
