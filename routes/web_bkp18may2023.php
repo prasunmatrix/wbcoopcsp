@@ -24,8 +24,7 @@ Route::group(['namespace' => 'web', 'prefix' => 'webview', 'as' => 'web.'], func
 Route::group(['namespace' => 'admin', 'prefix' => 'securepanel', 'as' => 'admin.'], function () {
 
     Route::any('/', 'AuthController@login')->name('login');
-    Route::get('/forget-password', 'AuthController@forgetPassword')->name('forget-password');
-    Route::post('/forget-password', 'AuthController@postForgetPassword')->name('post-forget-password');
+    // Route::any('/forget-password', 'AuthController@forgetPassword')->name('forget-password');
 
     Route::group(['middleware' => 'admin'], function () {
         Route::any('/dashboard', 'AccountController@dashboard')->name('dashboard');

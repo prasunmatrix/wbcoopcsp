@@ -184,17 +184,7 @@ $(document).ready(function() {
             }
         }
     });
-    $("#adminForgetPasswordForm").validate({
-      rules: {
-        resetemail: {
-              required: true,
-              valid_email: true
-          }
-          // password: {
-          //     required: true
-          // }
-      }
-    });
+
     /* Admin Profile Update */
     $("#updateAdminProfile").validate({
         rules: {

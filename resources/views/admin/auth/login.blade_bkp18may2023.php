@@ -36,11 +36,6 @@
             <div class="col-xs-12 text-center">
                 <button type="submit" class="btn _btn-primary _btn-block _btn-flat btn-submit">Login</button>
             </div>
-        </div><br/>
-        <div class="row">
-            <div class="col-xs-12 text-center">
-            <a class="btn btn-primary" href="{{ route('admin.forget-password') }}">Forgot Password</a>
-            </div>
         </div>
     {!! Form::close() !!}
 
