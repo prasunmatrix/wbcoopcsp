@@ -195,6 +195,38 @@ $(document).ready(function() {
           // }
       }
     });
+    $("#resetPassword").validate({
+      rules: {
+        password: {
+              required: true,    
+          },
+          password_confirmation: {
+              required: true
+          }
+      }
+    });
+    $("#resetPassword").on('submit', function(event){
+      var password = $("#password").val().trim();
+      var password_confirmation = $("#password_confirmation").val().trim();
+      var error = 0;
+      if (password !== '' && password_confirmation !== '' && password !== password_confirmation) {
+        $("#password_confirmation_msg").html('Both passwords are not same');
+        error = 1;
+      } 
+      // else {
+      //   if (password === '') {
+      //     $("#password_msg").html('Password can not be empty');
+      //     error = 1;
+      //   }
+      //   if (password_confirmation === '') {
+      //     $("#password_confirmation_msg").html('Password can not be empty');
+      //     error = 1;
+      //   }
+      // }
+      if(error !== 0) {
+        event.preventDefault();
+      }
+    });
     /* Admin Profile Update */
     $("#updateAdminProfile").validate({
         rules: {

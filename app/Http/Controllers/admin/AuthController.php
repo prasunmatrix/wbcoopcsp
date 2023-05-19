@@ -4,13 +4,14 @@ namespace App\Http\Controllers\admin;
 
 use App;
 use App\Http\Controllers\Controller;
-use App\User;
+use App\{User, PasswordReset};
 use Auth;
 use Helper, Hash;
 use Illuminate\Http\Request;
 use Redirect;
 use Validator;
 use View;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -115,6 +116,114 @@ class AuthController extends Controller
       return Redirect::back()
         ->withErrors($resetEmailErr)
         ->withInput();
+    }
+    $userStatus = $user->status;
+    if ($userStatus == 0) {
+      $resetEmailErr = array();
+      $resetEmailErr['resetemailerror'] = 'Please confirm your email first';
+      return Redirect::back()
+        ->withErrors($resetEmailErr)
+        ->withInput();
+    } else {
+      $token = Str::random(250);
+      $passwordResetExists = PasswordReset::where('email', $userEmail)->first();
+      //dd($passwordResetExists);
+      if ($passwordResetExists == null) {
+        PasswordReset::create([
+          'email'      => $userEmail,
+          'token'      => $token
+        ]);
+      } else {
+        PasswordReset::where('email', $userEmail)->update([
+          'token' => $token
+        ]);
+      }
+      \Mail::send(
+        'email_templates.password_reset',
+        [
+          'user' => $userEmail,
+          'app_config' => [
+            'token'      => $token,
+            'appLink'       => Helper::getBaseUrl(),
+            'controllerName' => 'user',
+            'subject'       => 'A password reset link has been sent to your email',
+          ],
+        ],
+        function ($m) use ($userEmail) {
+          $m->to($userEmail)->subject('Password Reset');
+        }
+      );
+      $request->session()->flash('alert-success', 'A password reset link has been sent to your email');
+      return redirect()->route('admin.forget-password');
+    }
+  }
+  public function getResetPassword($token)
+  {
+    if (is_null($token)) {
+      return Redirect::to('/');
+    } else {
+      $token = trim($token);
+      $tokenExists = PasswordReset::where('token', $token)->first();
+      //dd($tokenExists);
+      if ($tokenExists == null) {
+        return Redirect::to('/');
+      } else {
+        $data['page_title'] = 'Recover Password';
+        $data['panel_title'] = 'Recover Password';
+        $data['tok3n'] = $token;
+        return view('admin.auth.resetpassword', $data);
+      }
+    }
+  }
+  public function postResetPassword(Request $request)
+  {
+    $validator = Validator::make(
+      $request->all(),
+      [
+        'password'              => 'required|confirmed|min:8',
+        'tok3n'                 => 'required',
+      ],
+      [
+        'password.min'          => 'Password must be :min chars long',
+        'password.confirmed'    => 'Password & Confirm Password must be same',
+        'tok3n.required'        => 'Token Missing',
+      ]
+    );
+    if ($validator->fails()) {
+      return Redirect::back()
+        ->withErrors($validator)
+        ->withInput();
+    } else {
+      $resetToken = trim($request->get('tok3n'));
+      dd($resetToken);
+      $newPassword = trim($request->get('password'));
+      $passwordResetExists = PasswordReset::where('token', $resetToken)->first();
+      if ($passwordResetExists == null) {
+        $resetPasswordErr = array();
+        $resetPasswordErr['reseterror'] = 'Invalid Token';
+        return Redirect::back()
+          ->withErrors($resetPasswordErr)
+          ->withInput();
+      } else {
+        $resetEmail = $passwordResetExists->email;
+        $user = User::where('email', $resetEmail)->first();
+        if ($user == null) {
+          $resetPasswordErr = array();
+          $resetPasswordErr['reseterror'] = 'You are not a registered member';
+          return Redirect::back()
+            ->withErrors($resetPasswordErr)
+            ->withInput();
+        } else {
+          $user->update([
+            'password' => $newPassword,
+          ]);
+          $user->save();
+          PasswordReset::where('email', $resetEmail)->delete();
+          $successMsg = 'New Password has been set successfully';
+          return Redirect::to('member-login')
+            ->withSuccess($successMsg);
+        }
+      }
     }
   }
 }

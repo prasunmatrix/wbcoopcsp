@@ -26,6 +26,8 @@ Route::group(['namespace' => 'admin', 'prefix' => 'securepanel', 'as' => 'admin.
     Route::any('/', 'AuthController@login')->name('login');
     Route::get('/forget-password', 'AuthController@forgetPassword')->name('forget-password');
     Route::post('/forget-password', 'AuthController@postForgetPassword')->name('post-forget-password');
+    Route::get('/password-reset/{token}','AuthController@getResetPassword')->name('form-reset-password');
+    Route::post('/password-reset','AuthController@postResetPassword')->name('reset-password');
 
     Route::group(['middleware' => 'admin'], function () {
         Route::any('/dashboard', 'AccountController@dashboard')->name('dashboard');
