@@ -33,7 +33,7 @@
   <div class="form-group has-feedback">
     <input name="password" id="password" type="password" class="form-control resetInput" required placeholder="New Password">
     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-    <span class="star errMsg" id="password_msg">{{ $errors->first('password') }}</span>
+    <!-- <span class="star errMsg" id="password_msg">{{ $errors->first('password') }}</span> -->
   </div>
   <div class="form-group has-feedback">
     <!-- <label for="password_confirmation">Re-type New Password</label> -->

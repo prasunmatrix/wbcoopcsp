@@ -126,6 +126,7 @@ class AuthController extends Controller
         ->withInput();
     } else {
       $token = Str::random(250);
+      //dd($token);
       $passwordResetExists = PasswordReset::where('email', $userEmail)->first();
       //dd($passwordResetExists);
       if ($passwordResetExists == null) {
@@ -146,7 +147,7 @@ class AuthController extends Controller
             'token'      => $token,
             'appLink'       => Helper::getBaseUrl(),
             'controllerName' => 'user',
-            'subject'       => 'A password reset link has been sent to your email',
+            'subject'       => 'A password reset request was made.',
           ],
         ],
         function ($m) use ($userEmail) {
@@ -195,7 +196,7 @@ class AuthController extends Controller
         ->withInput();
     } else {
       $resetToken = trim($request->get('tok3n'));
-      dd($resetToken);
+      //dd($resetToken);
       $newPassword = trim($request->get('password'));
       $passwordResetExists = PasswordReset::where('token', $resetToken)->first();
       if ($passwordResetExists == null) {
@@ -206,22 +207,26 @@ class AuthController extends Controller
           ->withInput();
       } else {
         $resetEmail = $passwordResetExists->email;
+        //dd($resetEmail);
         $user = User::where('email', $resetEmail)->first();
         if ($user == null) {
           $resetPasswordErr = array();
-          $resetPasswordErr['reseterror'] = 'You are not a registered member';
+          $resetPasswordErr['reseterror'] = 'You are not a registered user';
           return Redirect::back()
             ->withErrors($resetPasswordErr)
             ->withInput();
         } else {
-          $user->update([
-            'password' => $newPassword,
-          ]);
-          $user->save();
+          // $user->update([
+          //   'password' => $newPassword,
+          // ]);
+          // $user->save();
+          $newPasswordHash=Hash::make($newPassword);
+          //dd($newPasswordHash);
+          $userPass=User::where('email',$resetEmail)->update(['password'=>$newPasswordHash]);
+          //dd($userPass);
           PasswordReset::where('email', $resetEmail)->delete();
-          $successMsg = 'New Password has been set successfully';
-          return Redirect::to('member-login')
-            ->withSuccess($successMsg);
+          $request->session()->flash('alert-success', 'New Password has been set successfully');
+          return redirect()->route('admin.login');
         }
       }
     }

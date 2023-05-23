@@ -37,23 +37,18 @@
           </td>
         </tr><!-- end tr -->
         <!-- 1 Column Text + Button : END -->
-        <tr>
-          <td><p>Please click on the link below to reset your password</p></td>
-        </tr>
-        <tr>
-          <td><p><a href="{{ route('admin.form-reset-password', $app_config['token']) }}">Click Here to Reset Your Password</a></p></td>
-        </tr>
-        <tr>
-          <td><p>If you can't click on the click, please paste below link in a browser</p></td>
-        </tr>
-        <tr>
-          <td><p>{{ route('admin.form-reset-password', $app_config['token']) }}</p></td>
-        </tr>
       </table>
+      <p>Please click on the link below to reset your password</p>
+
+      <a href="{{ route('admin.form-reset-password', $app_config['token']) }}">Click Here to Reset Your Password</a> <br/><br/>
+
+      <p>If you can't click on the click, please paste below link in a browser</p>
+
+      <p>{{ route('admin.form-reset-password', $app_config['token']) }}</p>
       <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;background-color:#1b1b1b;font-family:Arial, Helvetica, sans-serif;">
         <tr>
           <td style="text-align: center;padding:0 25px;">
-            <p style="font-family:Arial, Helvetica, sans-serif;font-size:16px;line-height:18px; color:#fff;margin:0 auto 0px;padding: 15px 0; text-align: center;">Copyright © 2023. All rights reserved.</p>
+            <p style="font-family:Arial, Helvetica, sans-serif;font-size:16px;line-height:18px; color:#fff;margin:0 auto 0px;padding: 15px 0; text-align: center;">Copyright © 2020. All rights reserved.</p>
           </td>
         </tr>
       </table>
