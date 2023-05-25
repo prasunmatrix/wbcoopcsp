@@ -31,7 +31,7 @@ use App\Software;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ExportUser;
 use App\Exports\UsersCustomExport;
-use DB;
+
 
 
 class AccountController extends Controller
@@ -83,8 +83,6 @@ class AccountController extends Controller
       // new query by PK for same count datatable and provider  date:21feb 2023//
       $test = UserDetails::whereNotNull('range_id')->where('software_using', '!=', 'NULL')->get()->count();
       // new query by PK for same count datatable and provider  date:21feb 2023//
-      $userNotActive=User::where('status','=','0')->get()->count();
-      
 
     } elseif ($loginUser->user_type == 1) {
       $query = UserDetails::whereBankId($loginUser->id)->whereNotNull('range_id');
@@ -95,11 +93,6 @@ class AccountController extends Controller
         ->get();
 
       $test = UserDetails::select('software_using')->where('software_using', '!=', 'NULL')->where('bank_id', $loginUser->id)->get()->count();
-      //\DB::enableQueryLog();
-      $userNotActive=DB::table('users')
-      ->Join('user_details', 'users.id', '=', 'user_details.user_id')->where('user_details.bank_id', $loginUser->id)->where('users.status','=','0')->get()->count();
-      //dd(\DB::getQueryLog());
-      //dd($userNotActive);
     } elseif ($loginUser->user_type == 2) {
       $query = UserDetails::whereZoneId($loginUser->id)->whereNotNull('range_id');
       $softwareDetails = UserDetails::with(['userSoftware'])->select('*', \DB::raw('count(*) as total'))
