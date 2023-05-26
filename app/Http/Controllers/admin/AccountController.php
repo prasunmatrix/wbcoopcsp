@@ -84,7 +84,7 @@ class AccountController extends Controller
       $test = UserDetails::whereNotNull('range_id')->where('software_using', '!=', 'NULL')->get()->count();
       // new query by PK for same count datatable and provider  date:21feb 2023//
       $userNotActive=User::where('status','=','0')->get()->count();
-      
+      $data['userNotActive']=$userNotActive;
 
     } elseif ($loginUser->user_type == 1) {
       $query = UserDetails::whereBankId($loginUser->id)->whereNotNull('range_id');
@@ -100,6 +100,7 @@ class AccountController extends Controller
       ->Join('user_details', 'users.id', '=', 'user_details.user_id')->where('user_details.bank_id', $loginUser->id)->where('users.status','=','0')->get()->count();
       //dd(\DB::getQueryLog());
       //dd($userNotActive);
+      $data['userNotActive']=$userNotActive;
     } elseif ($loginUser->user_type == 2) {
       $query = UserDetails::whereZoneId($loginUser->id)->whereNotNull('range_id');
       $softwareDetails = UserDetails::with(['userSoftware'])->select('*', \DB::raw('count(*) as total'))

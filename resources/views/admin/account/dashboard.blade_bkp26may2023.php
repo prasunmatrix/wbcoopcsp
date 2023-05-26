@@ -192,12 +192,6 @@ $arr = ['0' => 'No', '1'=>'Yes' ]
               <strong style="color:green">{{$list->total()}}</strong>
               Entries
             </div>
-            @if(Auth::guard('admin')->user()->user_type==0 || Auth::guard('admin')->user()->user_type==1)
-            <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
-              <strong>Inactive Pacs:</strong>
-              <strong style="color:green">{{ $userNotActive }}</strong>
-            </div>
-            @endif
           </div>
           <div class="col-sm-12 col-md-7">
             <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">

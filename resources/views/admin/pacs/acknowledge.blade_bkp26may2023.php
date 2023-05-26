@@ -201,11 +201,12 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="name">E District Registration No<span class="red_star"></span></label>
+                                    <label for="name">E District Registration No<span class="red_star">*</span></label>
                                     {{ Form::text('district_registration_no', $details->userProfile->district_registration_no, array(
                                                                 'id' => 'district_registration_no',
                                                                 'placeholder' => 'District Registration No',
                                                                 'class' => 'form-control',
+                                                                'required' => 'required',
                                                                 'readonly' => $readonlyStatus
                                                                  )) }}
                                 </div>

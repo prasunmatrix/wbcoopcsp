@@ -2015,9 +2015,9 @@ $(document).ready(function() {
             socity_registration_no: {
                 required: true
             },
-            // district_registration_no: {
-            //     required: true
-            // },
+            district_registration_no: {
+                required: true
+            },
             information_correct_verified: {
                 required: true
             },
@@ -2068,9 +2068,9 @@ $(document).ready(function() {
             socity_type: {
                 required: "Please select any role"
             },
-            // district_registration_no: {
-            //     required: "Please select any role"
-            // },
+            district_registration_no: {
+                required: "Please select any role"
+            },
             software_using: {
                 required: "Please select any role"
             },
